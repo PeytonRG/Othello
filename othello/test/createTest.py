@@ -52,13 +52,17 @@ class CreateTest(TestCase):
         result = create._create(self.inputDictionary)
         self.assertEqual(len(result["board"]), expectedResult)
         
-#     def test220_ShouldReturnCorrectBoardKeyValuePair(self):
-#         self.setLight(1)
-#         self.setDark(2)
-#         self.setBlank(0)
-#         self.setSize(8)
-#         result = create._create(self.inputDictionary)
-#         self.assertIsInstance(result, dict)
+    def test230_ShouldReturnCorrectBoardKeyValuePair(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(0)
+        self.setSize(8)
+        expectedResult = [0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,
+                          0,0,0,0,0,0,0,0, 0,0,0,1,2,0,0,0, 
+                          0,0,0,2,1,0,0,0, 0,0,0,0,0,0,0,0, 
+                          0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0]
+        result = create._create(self.inputDictionary)
+        self.assertEqual(len(result["board"]), expectedResult)
     
 # Happy Path Acceptance Tests
 #     def test010_AllParamsNominal(self):

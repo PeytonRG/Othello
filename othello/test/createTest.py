@@ -62,7 +62,7 @@ class CreateTest(TestCase):
                           0,0,0,2,1,0,0,0, 0,0,0,0,0,0,0,0, 
                           0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0]
         result = create._create(self.inputDictionary)
-        self.assertEqual(len(result["board"]), expectedResult)
+        self.assertEqual(result["board"], expectedResult)
     
 # Happy Path Acceptance Tests
 #     def test010_AllParamsNominal(self):

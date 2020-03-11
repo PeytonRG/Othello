@@ -8,16 +8,16 @@ def _create(inputDictionary):
     blank = inputDictionary["blank"]
     lengthWidth = inputDictionary["size"]
     boardSize = lengthWidth**2
-    boardMidpoint = boardSize / 2
+    boardMidpoint = boardSize / 2 - 1
     distanceFromMidpoint = lengthWidth / 2
     
     board = []
     for index in range(boardSize):
         if ((boardMidpoint - distanceFromMidpoint) == index or 
-            (boardMidpoint + distanceFromMidpoint) == index):
+            (boardMidpoint + distanceFromMidpoint + 1) == index):
             board.append(light)
-        elif ((boardMidpoint - distanceFromMidpoint - 1) == index or 
-            (boardMidpoint + distanceFromMidpoint - 1) == index):
+        elif ((boardMidpoint - distanceFromMidpoint + 1) == index or 
+            (boardMidpoint + distanceFromMidpoint) == index):
             board.append(dark)
         else:
             board.append(blank)

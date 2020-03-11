@@ -28,5 +28,12 @@ def _create(inputDictionary):
         else:
             board.append(blank)
         
-    result = {"board": board}
+    result = {
+        "board": board,
+        "tokens": {
+            "light": light, 
+            "dark": dark, 
+            "blank": blank
+            }
+        }
     return result

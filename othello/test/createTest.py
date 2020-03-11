@@ -35,7 +35,7 @@ class CreateTest(TestCase):
         self.inputDictionary["size"] = size
         
     # Unit Tests
-    def test510_ShouldReturnOutputDictionary(self):
+    def test210_ShouldReturnOutputDictionary(self):
         self.setLight(1)
         self.setDark(2)
         self.setBlank(0)
@@ -43,5 +43,29 @@ class CreateTest(TestCase):
         result = create._create(self.inputDictionary)
         self.assertIsInstance(result, dict)
         
+    def test510_ShouldReturnEmptyBoardInOutputDict(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(0)
+        self.setSize(8)
+        expectedResult = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        result = create._create(self.inputDictionary)
+        self.assertDictEqual(result, expectedResult)
+        
+#     def test220_ShouldReturnCorrectBoardKeyValuePair(self):
+#         self.setLight(1)
+#         self.setDark(2)
+#         self.setBlank(0)
+#         self.setSize(8)
+#         result = create._create(self.inputDictionary)
+#         self.assertIsInstance(result, dict)
     
-
+# Happy Path Acceptance Tests
+#     def test010_AllParamsNominal(self):
+#         self.setLight(6)
+#         self.setDark(5)
+#         self.setBlank(1)
+#         self.setSize(10)
+#         expectedResult = {'board': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 5, 1, 1, 1, 1, 1, 1, 1, 1, 5, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 'tokens': {'light': 6, 'dark': 5, 'blank': 1}, 'status': 'ok', 'integrity': 'd0f18c5b412ab1dbf89da19baa33cc35f4a7dd0619ce7b7dcb2381d2cb14a412'}
+#         result = create._create(self.inputDictionary)
+#         self.assertEqual(result, expectedResult)

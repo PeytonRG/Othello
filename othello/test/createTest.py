@@ -63,6 +63,15 @@ class CreateTest(TestCase):
                           0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0]
         result = create._create(self.inputDictionary)
         self.assertEqual(result["board"], expectedResult)
+        
+    def test240_ShouldReturnCorrectTokenKeyValuePair(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(0)
+        self.setSize(8)
+        expectedResult = {'light': 1,'dark': 2, 'blank': 0}
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result["tokens"], expectedResult)
     
 # Happy Path Acceptance Tests
 #     def test010_AllParamsNominal(self):

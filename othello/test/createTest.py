@@ -50,7 +50,7 @@ class CreateTest(TestCase):
         self.setSize(8)
         expectedResult = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         result = create._create(self.inputDictionary)
-        self.assertDictEqual(result["board"], expectedResult)
+        self.assertEqual(result["board"], expectedResult)
         
 #     def test220_ShouldReturnCorrectBoardKeyValuePair(self):
 #         self.setLight(1)

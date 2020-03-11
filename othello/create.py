@@ -9,7 +9,7 @@ def _create(inputDictionary):
     boardSize = inputDictionary["size"]
     
     board = []
-    for index in range(boardSize^2):
+    for index in range(boardSize**2):
         board.append(blank)
         
     result = {"board": board}

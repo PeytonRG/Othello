@@ -43,14 +43,14 @@ class CreateTest(TestCase):
         result = create._create(self.inputDictionary)
         self.assertIsInstance(result, dict)
         
-    def test510_ShouldReturnEmptyBoardInOutputDict(self):
+    def test220_ShouldReturnBoardWithLengthEqualsSizeSquared(self):
         self.setLight(1)
         self.setDark(2)
         self.setBlank(0)
         self.setSize(8)
-        expectedResult = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        expectedResult = self.inputDictionary["size"]**2
         result = create._create(self.inputDictionary)
-        self.assertEqual(result["board"], expectedResult)
+        self.assertEqual(len(result["board"]), expectedResult)
         
 #     def test220_ShouldReturnCorrectBoardKeyValuePair(self):
 #         self.setLight(1)

@@ -5,7 +5,12 @@
 import hashlib
 
 def _create(inputDictionary):
+    status = []
+    
     try:
+        if inputDictionary["light"] > 9:
+            status.append("The value for light tokens is " 
+            + "above the accepted range.")
         light = inputDictionary["light"]
     except KeyError:
         light = 1
@@ -44,15 +49,18 @@ def _create(inputDictionary):
             
     boardString = "".join(str(element) for element in board)
     integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/{dark}")
-        
-    result = {
-        "board": board,
-        "tokens": {
-            "light": light, 
-            "dark": dark, 
-            "blank": blank
-            },
-        "integrity": hashlib.sha256(integrity).hexdigest(),
-        "status": "ok"
-        }
-    return result
+    
+    if len(status) > 0:
+        return {"status": "error: " + status[0]}
+    else:
+        result = {
+            "board": board,
+            "tokens": {
+                "light": light, 
+                "dark": dark, 
+                "blank": blank
+                },
+            "integrity": hashlib.sha256(integrity).hexdigest(),
+            "status": "ok"
+            }
+        return result

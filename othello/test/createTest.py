@@ -453,3 +453,10 @@ class CreateTest(TestCase):
                           + 'be an integer.'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
+    
+    def test923_NullBlankNominalLightDarkSize(self):
+        self.setBlank()
+        expectedResult = {'status': 'error: The value for blank spaces must '
+                          + 'be an integer.'}
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result, expectedResult)

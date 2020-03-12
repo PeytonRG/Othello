@@ -243,7 +243,18 @@ class CreateTest(TestCase):
         self.setDark(4)
         self.setBlank(9)
         self.setSize(10)
-        expectedResult = {'board': [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 3, 4, 9, 9, 9, 9, 9, 9, 9, 9, 4, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9], 'tokens': {'light': 3, 'dark': 4, 'blank': 9}, 'status': 'ok', 'integrity': '5b4c82af0cf6a72ab1938b8e5a3c1ce413b9db583d0f974703954427413021d0'}
+        expectedResult = {'board': [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 
+                                    9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 
+                                    9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 
+                                    9, 9, 3, 4, 9, 9, 9, 9, 9, 9, 9, 9, 4, 3, 
+                                    9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 
+                                    9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 
+                                    9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 
+                                    9, 9], 
+                                    'tokens': {'light': 3, 'dark': 4, 
+                                               'blank': 9}, 'status': 'ok', 
+                                    'integrity': '5b4c82af0cf6a72ab1938b8e5' +
+                                    'a3c1ce413b9db583d0f974703954427413021d0'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
@@ -252,7 +263,18 @@ class CreateTest(TestCase):
         self.setDark(4)
         self.setBlank(0)
         self.setSize(10)
-        expectedResult = {'board': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'tokens': {'light': 3, 'dark': 4, 'blank': 0}, 'status': 'ok', 'integrity': 'eeaa1d4229234a1453901319e7f584a337595d6d332a22a76c4aae8888cde9d6'}
+        expectedResult = {'board': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                    0, 0, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 3, 
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                    0, 0], 
+                                    'tokens': {'light': 3, 'dark': 4, 
+                                               'blank': 0}, 'status': 'ok', 
+                                    'integrity': 'eeaa1d4229234a1453901319e' +
+                                    '7f584a337595d6d332a22a76c4aae8888cde9d6'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
@@ -260,7 +282,18 @@ class CreateTest(TestCase):
         self.setLight(3)
         self.setDark(4)
         self.setSize(10)
-        expectedResult = {'board': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'tokens': {'light': 3, 'dark': 4, 'blank': 0}, 'status': 'ok', 'integrity': 'eeaa1d4229234a1453901319e7f584a337595d6d332a22a76c4aae8888cde9d6'}
+        expectedResult = {'board': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                    0, 0, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 3, 
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                    0, 0], 
+                                    'tokens': {'light': 3, 'dark': 4, 
+                                               'blank': 0}, 'status': 'ok', 
+                                    'integrity': 'eeaa1d4229234a1453901319e' +
+                                    '7f584a337595d6d332a22a76c4aae8888cde9d6'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
@@ -269,7 +302,29 @@ class CreateTest(TestCase):
         self.setDark(4)
         self.setBlank(5)
         self.setSize(16)
-        expectedResult = {'board': [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5], 'tokens': {'light': 3, 'dark': 4, 'blank': 5}, 'status': 'ok', 'integrity': '682b1bac788017f23b846862ce44f2c3efe03a22f49de36085e0e57fc6957416'}
+        expectedResult = {'board': [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 3, 4, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 3, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5], 
+                                    'tokens': {'light': 3, 'dark': 4, 
+                                               'blank': 5}, 'status': 'ok', 
+                                    'integrity': '682b1bac788017f23b846862c' +
+                                    'e44f2c3efe03a22f49de36085e0e57fc6957416'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
@@ -278,7 +333,13 @@ class CreateTest(TestCase):
         self.setDark(4)
         self.setBlank(5)
         self.setSize(6)
-        expectedResult = {'board': [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 4, 5, 5, 5, 5, 4, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5], 'tokens': {'light': 3, 'dark': 4, 'blank': 5}, 'status': 'ok', 'integrity': 'b87b212e557d1dc1080f1c6e380bab404ae8cffa048b86e649e54c620f0d9c6a'}
+        expectedResult = {'board': [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    3, 4, 5, 5, 5, 5, 4, 3, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5], 
+                                    'tokens': {'light': 3, 'dark': 4, 
+                                               'blank': 5}, 'status': 'ok', 
+                                    'integrity': 'b87b212e557d1dc1080f1c6e3' +
+                                    '80bab404ae8cffa048b86e649e54c620f0d9c6a'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
@@ -286,17 +347,41 @@ class CreateTest(TestCase):
         self.setLight(3)
         self.setDark(4)
         self.setBlank(5)
-        expectedResult = {'board': [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 4, 5, 5, 5, 5, 5, 5, 4, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5], 'tokens': {'light': 3, 'dark': 4, 'blank': 5}, 'status': 'ok', 'integrity': '306a2474c8f8b41c9e31af0fe360f9fcaf3531b3b4a1c3624acd8fbc2530b02e'}
+        expectedResult = {'board': [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 
+                                    4, 5, 5, 5, 5, 5, 5, 4, 3, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 
+                                    5, 5, 5, 5, 5, 5, 5, 5], 
+                                    'tokens': {'light': 3, 'dark': 4, 
+                                               'blank': 5}, 'status': 'ok', 
+                                    'integrity': '306a2474c8f8b41c9e31af0fe' +
+                                    '360f9fcaf3531b3b4a1c3624acd8fbc2530b02e'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
     def test060_AllParametersDefaulted(self):
-        expectedResult = {'board': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'tokens': {'light': 1, 'dark': 2, 'blank': 0}, 'status': 'ok', 'integrity': 'b11fcf5f9ac9d3b8cea8085208e210182a8d6b73a84028562ab2c87d190b9ada'}
+        expectedResult = {'board': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 
+                                    2, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                    0, 0, 0, 0, 0, 0, 0, 0], 
+                                    'tokens': {'light': 1, 'dark': 2, 
+                                               'blank': 0}, 'status': 'ok', 
+                                    'integrity': 'b11fcf5f9ac9d3b8cea808520' +
+                                    '8e210182a8d6b73a84028562ab2c87d190b9ada'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
     def test070_ShouldIgnoreExtraneousParameters(self):
         self.inputDictionary["extra"] = 1234
-        expectedResult = {'board': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'tokens': {'light': 1, 'dark': 2, 'blank': 0}, 'status': 'ok', 'integrity': 'b11fcf5f9ac9d3b8cea8085208e210182a8d6b73a84028562ab2c87d190b9ada'}
+        expectedResult = {'board': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 
+                                    2, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                    0, 0, 0, 0, 0, 0, 0, 0], 
+                                    'tokens': {'light': 1, 'dark': 2, 
+                                               'blank': 0}, 'status': 'ok', 
+                                    'integrity': 'b11fcf5f9ac9d3b8cea808520' +
+                                    '8e210182a8d6b73a84028562ab2c87d190b9ada'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)

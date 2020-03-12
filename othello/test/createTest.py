@@ -411,3 +411,10 @@ class CreateTest(TestCase):
                           + 'above the accepted range.'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
+        
+    def test911_BelowBoundDarkNominalLightBlankSize(self):
+        self.setDark(-1)
+        expectedResult = {'status': 'error: The value for dark tokens is '
+                          + 'below the accepted range.'}
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result, expectedResult)

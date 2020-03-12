@@ -57,6 +57,9 @@ def _create(inputDictionary):
             + "be an even integer in the range [6, 16].")
     except KeyError:
         lengthWidth = 8
+    except TypeError:
+        errorList.append("The value for board size must " 
+            + "be an even integer in the range [6, 16].")
         
     if len(errorList) > 0:
         return {"status": "error: " + errorList[0]}

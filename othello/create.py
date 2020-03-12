@@ -2,6 +2,7 @@
     Created on March 11, 2020
     @author: Peyton Gasink
 '''
+import hashlib
 
 def _create(inputDictionary):
     light = inputDictionary["light"]
@@ -28,6 +29,9 @@ def _create(inputDictionary):
             board.append(dark)
         else:
             board.append(blank)
+            
+    boardString = "".join(str(element) for element in board)
+    integrity = boardString + f"/{light}/{dark}/{blank}/{dark}"
         
     result = {
         "board": board,
@@ -35,6 +39,7 @@ def _create(inputDictionary):
             "light": light, 
             "dark": dark, 
             "blank": blank
-            }
+            },
+        "integrity": hashlib.sha256(integrity)
         }
     return result

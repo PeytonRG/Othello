@@ -439,3 +439,10 @@ class CreateTest(TestCase):
                           + 'above the accepted range.'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
+        
+    def test921_BelowBoundBlankNominalLightDarkSize(self):
+        self.setBlank(-1)
+        expectedResult = {'status': 'error: The value for blank spaces is '
+                          + 'below the accepted range.'}
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result, expectedResult)

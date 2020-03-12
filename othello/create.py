@@ -3,6 +3,7 @@
     @author: Peyton Gasink
 '''
 import hashlib
+from _ast import Or
 
 def _create(inputDictionary):
     errorList = []
@@ -50,16 +51,10 @@ def _create(inputDictionary):
             + "be an integer.")
         
     try:
-        if inputDictionary["size"] % 2 != 0:
+        lengthWidth = inputDictionary["size"]
+        if (lengthWidth % 2 != 0) or (lengthWidth > 16) or (lengthWidth < 6):
             errorList.append("The value for board size must " 
             + "be an even integer in the range [6, 16].")
-        elif inputDictionary["size"] > 16:
-            errorList.append("The value for board size is " 
-            + "above the accepted range.")
-        elif inputDictionary["size"] < 6:
-            errorList.append("The value for board size is " 
-            + "below the accepted range.")
-        lengthWidth = inputDictionary["size"]
     except KeyError:
         lengthWidth = 8
         

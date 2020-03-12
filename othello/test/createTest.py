@@ -463,15 +463,15 @@ class CreateTest(TestCase):
         
     def test930_AboveBoundSizeNominalLightDarkBlank(self):
         self.setSize(17)
-        expectedResult = {'status': 'error: The value for board size is '
-                          + 'above the accepted range.'}
+        expectedResult = {'status': 'error: The value for board size must '
+                          + 'be an even integer in the range [6, 16].'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
     def test931_BelowBoundSizeNominalLightDarkBlank(self):
         self.setSize(5)
-        expectedResult = {'status': 'error: The value for board size is '
-                          + 'below the accepted range.'}
+        expectedResult = {'status': 'error: The value for board size must '
+                          + 'be an even integer in the range [6, 16].'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
@@ -482,7 +482,7 @@ class CreateTest(TestCase):
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
-    def test932_NonIntegerSizeNominalLightDarkBlank(self):
+    def test933_NonIntegerSizeNominalLightDarkBlank(self):
         self.setSize(1.2)
         expectedResult = {'status': 'error: The value for board size must '
                           + 'be an even integer in the range [6, 16].'}

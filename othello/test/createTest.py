@@ -134,11 +134,19 @@ class CreateTest(TestCase):
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
-    def test030_LowBoundDarkNominalLightBlankSize(self):
+    def test031_LowBoundDarkNominalLightBlankSize(self):
         self.setLight(3)
         self.setDark(0)
         self.setBlank(4)
         self.setSize(10)
         expectedResult = {'board': [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 0, 4, 4, 4, 4, 4, 4, 4, 4, 0, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4], 'tokens': {'light': 3, 'dark': 0, 'blank': 4}, 'status': 'ok', 'integrity': '7bf98e8385a158097f52361dac139bb5882f3eaa48e8146d72d65de5981d2e5e'}
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result, expectedResult)
+        
+    def test032_MissingDarkNominalLightBlankSize(self):
+        self.setLight(3)
+        self.setBlank(4)
+        self.setSize(10)
+        expectedResult = {'board': [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 2, 4, 4, 4, 4, 4, 4, 4, 4, 2, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4], 'tokens': {'light': 3, 'dark': 2, 'blank': 4}, 'status': 'ok', 'integrity': '71f91a7d487c9e9ad69a43269c6a90c449f97fd93848b8493e47a2f6054e7c82'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)

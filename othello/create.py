@@ -50,15 +50,15 @@ def _create(inputDictionary):
             + "be an integer.")
         
     try:
-        if inputDictionary["size"] > 16:
+        if inputDictionary["size"] % 2 != 0:
+            errorList.append("The value for board size must " 
+            + "be an even integer in the range [6, 16].")
+        elif inputDictionary["size"] > 16:
             errorList.append("The value for board size is " 
             + "above the accepted range.")
         elif inputDictionary["size"] < 6:
             errorList.append("The value for board size is " 
             + "below the accepted range.")
-        elif inputDictionary["size"] % 2 != 0:
-            errorList.append("The value for board size must " 
-            + "be an even integer in the range [6, 16].")
         lengthWidth = inputDictionary["size"]
     except KeyError:
         lengthWidth = 8

@@ -3,7 +3,6 @@
     @author: Peyton Gasink
 '''
 import hashlib
-from _ast import Or
 
 def _create(inputDictionary):
     errorList = []

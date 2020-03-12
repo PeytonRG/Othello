@@ -495,3 +495,12 @@ class CreateTest(TestCase):
                           + 'be an even integer in the range [6, 16].'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
+    
+    def test940_NominalLightDarkEqualsLightNominalBlankSize(self):
+        self.setLight(5)
+        self.setDark(5)
+        self.setBlank(0)
+        expectedResult = {'status': 'error: The values of light, dark, '
+                          + 'and blank must be unique.'}
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result, expectedResult)

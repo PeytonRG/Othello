@@ -16,7 +16,6 @@ class CreateTest(TestCase):
         self.nominalSize = 8
         self.errorValue = "error:"
         self.errorKey = "error"
-        #self.solutionKey = "create"
         self.inputDictionary = {}
         
     def tearDown(self):
@@ -91,11 +90,11 @@ class CreateTest(TestCase):
         self.assertIsInstance(result["status"], str)
     
 # Happy Path Acceptance Tests
-#     def test010_AllParamsNominal(self):
-#         self.setLight(6)
-#         self.setDark(5)
-#         self.setBlank(1)
-#         self.setSize(10)
-#         expectedResult = {'board': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 5, 1, 1, 1, 1, 1, 1, 1, 1, 5, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 'tokens': {'light': 6, 'dark': 5, 'blank': 1}, 'status': 'ok', 'integrity': 'd0f18c5b412ab1dbf89da19baa33cc35f4a7dd0619ce7b7dcb2381d2cb14a412'}
-#         result = create._create(self.inputDictionary)
-#         self.assertEqual(result, expectedResult)
+    def test010_AllParamsNominal(self):
+        self.setLight(6)
+        self.setDark(5)
+        self.setBlank(1)
+        self.setSize(10)
+        expectedResult = {'board': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 5, 1, 1, 1, 1, 1, 1, 1, 1, 5, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 'tokens': {'light': 6, 'dark': 5, 'blank': 1}, 'status': 'ok', 'integrity': 'd0f18c5b412ab1dbf89da19baa33cc35f4a7dd0619ce7b7dcb2381d2cb14a412'}
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result, expectedResult)

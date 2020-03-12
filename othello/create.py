@@ -5,7 +5,10 @@
 import hashlib
 
 def _create(inputDictionary):
-    light = inputDictionary["light"]
+    try:
+        light = inputDictionary["light"]
+    except KeyError:
+        light = 1
     dark = inputDictionary["dark"]
     blank = inputDictionary["blank"]
     lengthWidth = inputDictionary["size"]

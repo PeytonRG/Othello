@@ -21,6 +21,9 @@ def _create(inputDictionary):
         errorList.append("The value for light tokens must " 
             + "be an integer.")
     try:
+        if inputDictionary["dark"] > 9:
+            errorList.append("The value for dark tokens is " 
+            + "above the accepted range.")
         dark = inputDictionary["dark"]
     except KeyError:
         dark = 2

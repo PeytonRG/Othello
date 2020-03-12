@@ -82,6 +82,14 @@ class CreateTest(TestCase):
         result = create._create(self.inputDictionary)
         self.assertEqual(result["integrity"], expectedResult)
     
+    def test260_ShouldReturnStatusKeyValuePairWithStringValue(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(0)
+        self.setSize(8)
+        result = create._create(self.inputDictionary)
+        self.assertIsInstance(result["status"], str)
+    
 # Happy Path Acceptance Tests
 #     def test010_AllParamsNominal(self):
 #         self.setLight(6)

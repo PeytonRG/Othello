@@ -39,6 +39,9 @@ def _create(inputDictionary):
         if inputDictionary["blank"] > 9:
             errorList.append("The value for blank spaces is " 
             + "above the accepted range.")
+        elif inputDictionary["blank"] < 0:
+            errorList.append("The value for blank spaces is " 
+            + "below the accepted range.")
         blank = inputDictionary["blank"]
     except KeyError:
         blank = 0

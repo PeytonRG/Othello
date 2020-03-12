@@ -53,6 +53,9 @@ def _create(inputDictionary):
         if inputDictionary["size"] > 16:
             errorList.append("The value for board size is " 
             + "above the accepted range.")
+        elif inputDictionary["size"] < 6:
+            errorList.append("The value for board size is " 
+            + "below the accepted range.")
         lengthWidth = inputDictionary["size"]
     except KeyError:
         lengthWidth = 8

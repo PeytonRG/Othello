@@ -31,7 +31,7 @@ def _create(inputDictionary):
             board.append(blank)
             
     boardString = "".join(str(element) for element in board)
-    integrity = boardString + f"/{light}/{dark}/{blank}/{dark}"
+    integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/{dark}")
         
     result = {
         "board": board,
@@ -40,6 +40,6 @@ def _create(inputDictionary):
             "dark": dark, 
             "blank": blank
             },
-        "integrity": hashlib.sha256(integrity)
+        "integrity": hashlib.sha256(integrity).digest()
         }
     return result

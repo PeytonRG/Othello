@@ -20,6 +20,7 @@ def _create(inputDictionary):
     except TypeError:
         errorList.append("The value for light tokens must " 
             + "be an integer.")
+    
     try:
         if inputDictionary["dark"] > 9:
             errorList.append("The value for dark tokens is " 
@@ -30,10 +31,15 @@ def _create(inputDictionary):
         dark = inputDictionary["dark"]
     except KeyError:
         dark = 2
+    except TypeError:
+        errorList.append("The value for dark tokens must " 
+            + "be an integer.")
+    
     try:
         blank = inputDictionary["blank"]
     except KeyError:
         blank = 0
+    
     try:
         lengthWidth = inputDictionary["size"]
     except KeyError:

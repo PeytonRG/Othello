@@ -40,6 +40,6 @@ def _create(inputDictionary):
             "dark": dark, 
             "blank": blank
             },
-        "integrity": hashlib.sha256(integrity).digest()
+        "integrity": hashlib.sha256(integrity).hexdigest()
         }
     return result

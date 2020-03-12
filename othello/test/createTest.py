@@ -78,7 +78,7 @@ class CreateTest(TestCase):
         self.setDark(2)
         self.setBlank(0)
         self.setSize(8)
-        expectedResult = {'integrity': 'b11fcf5f9ac9d3b8cea8085208e210182a8d6b73a84028562ab2c87d190b9ada'}
+        expectedResult = 'b11fcf5f9ac9d3b8cea8085208e210182a8d6b73a84028562ab2c87d190b9ada'
         result = create._create(self.inputDictionary)
         self.assertEqual(result["integrity"], expectedResult)
     

@@ -9,7 +9,10 @@ def _create(inputDictionary):
         light = inputDictionary["light"]
     except KeyError:
         light = 1
-    dark = inputDictionary["dark"]
+    try:
+        dark = inputDictionary["dark"]
+    except KeyError:
+        dark = 2
     blank = inputDictionary["blank"]
     lengthWidth = inputDictionary["size"]
     

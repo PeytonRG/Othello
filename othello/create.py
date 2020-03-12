@@ -11,6 +11,9 @@ def _create(inputDictionary):
         if inputDictionary["light"] > 9:
             status.append("The value for light tokens is " 
             + "above the accepted range.")
+        elif inputDictionary["light"] < 0:
+            status.append("The value for light tokens is " 
+            + "below the accepted range.")
         light = inputDictionary["light"]
     except KeyError:
         light = 1

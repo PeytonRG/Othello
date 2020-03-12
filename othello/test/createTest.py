@@ -390,3 +390,10 @@ class CreateTest(TestCase):
                           + 'below the accepted range.'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
+        
+    def test901_NonIntegerLightNominalDarkBlankSize(self):
+        self.setLight("w")
+        expectedResult = {'status': 'error: The value for light tokens must '
+                          + 'be an integer.'}
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result, expectedResult)

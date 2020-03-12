@@ -5,18 +5,21 @@
 import hashlib
 
 def _create(inputDictionary):
-    status = []
+    errorList = []
     
     try:
         if inputDictionary["light"] > 9:
-            status.append("The value for light tokens is " 
+            errorList.append("The value for light tokens is " 
             + "above the accepted range.")
         elif inputDictionary["light"] < 0:
-            status.append("The value for light tokens is " 
+            errorList.append("The value for light tokens is " 
             + "below the accepted range.")
         light = inputDictionary["light"]
     except KeyError:
         light = 1
+    except TypeError:
+        errorList.append("The value for light tokens must " 
+            + "be an integer.")
     try:
         dark = inputDictionary["dark"]
     except KeyError:
@@ -53,8 +56,8 @@ def _create(inputDictionary):
     boardString = "".join(str(element) for element in board)
     integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/{dark}")
     
-    if len(status) > 0:
-        return {"status": "error: " + status[0]}
+    if len(errorList) > 0:
+        return {"status": "error: " + errorList[0]}
     else:
         result = {
             "board": board,

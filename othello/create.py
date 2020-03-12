@@ -24,6 +24,9 @@ def _create(inputDictionary):
         if inputDictionary["dark"] > 9:
             errorList.append("The value for dark tokens is " 
             + "above the accepted range.")
+        elif inputDictionary["dark"] < 0:
+            errorList.append("The value for dark tokens is " 
+            + "below the accepted range.")
         dark = inputDictionary["dark"]
     except KeyError:
         dark = 2

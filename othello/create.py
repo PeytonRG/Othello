@@ -2,6 +2,7 @@
     Created on March 11, 2020
     @author: Peyton Gasink
 '''
+
 def _create(inputDictionary):
     light = inputDictionary["light"]
     dark = inputDictionary["dark"]

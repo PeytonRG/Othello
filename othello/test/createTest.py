@@ -21,7 +21,7 @@ class CreateTest(TestCase):
     def tearDown(self):
         self.inputDictionary = {}
     
-    def setLight(self, light):
+    def setLight(self, light = None):
         self.inputDictionary["light"] = light
         
     def setDark(self, dark):
@@ -391,8 +391,15 @@ class CreateTest(TestCase):
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
-    def test901_NonIntegerLightNominalDarkBlankSize(self):
+    def test902_NonIntegerLightNominalDarkBlankSize(self):
         self.setLight("w")
+        expectedResult = {'status': 'error: The value for light tokens must '
+                          + 'be an integer.'}
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result, expectedResult)
+        
+    def test902_NullLightNominalDarkBlankSize(self):
+        self.setLight()
         expectedResult = {'status': 'error: The value for light tokens must '
                           + 'be an integer.'}
         result = create._create(self.inputDictionary)

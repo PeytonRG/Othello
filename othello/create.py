@@ -32,6 +32,9 @@ def _create(inputDictionary):
         lengthWidth = inputDictionary["size"]
     except KeyError:
         lengthWidth = 8
+        
+    if len(errorList) > 0:
+        return {"status": "error: " + errorList[0]}
     
     boardSize = lengthWidth**2
     boardMidpoint = boardSize / 2 - 1
@@ -56,17 +59,15 @@ def _create(inputDictionary):
     boardString = "".join(str(element) for element in board)
     integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/{dark}")
     
-    if len(errorList) > 0:
-        return {"status": "error: " + errorList[0]}
-    else:
-        result = {
-            "board": board,
-            "tokens": {
-                "light": light, 
-                "dark": dark, 
-                "blank": blank
-                },
-            "integrity": hashlib.sha256(integrity).hexdigest(),
-            "status": "ok"
-            }
-        return result
+    
+    result = {
+        "board": board,
+        "tokens": {
+            "light": light, 
+            "dark": dark, 
+            "blank": blank
+            },
+        "integrity": hashlib.sha256(integrity).hexdigest(),
+        "status": "ok"
+        }
+    return result

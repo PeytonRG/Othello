@@ -24,13 +24,13 @@ class CreateTest(TestCase):
     def setLight(self, light = None):
         self.inputDictionary["light"] = light
         
-    def setDark(self, dark):
+    def setDark(self, dark = None):
         self.inputDictionary["dark"] = dark
         
-    def setBlank(self, blank):
+    def setBlank(self, blank = None):
         self.inputDictionary["blank"] = blank
         
-    def setSize(self, size):
+    def setSize(self, size = None):
         self.inputDictionary["size"] = size
         
     # Unit Tests
@@ -421,6 +421,13 @@ class CreateTest(TestCase):
         
     def test912_NonIntegerDarkNominalLightBlankSize(self):
         self.setDark("d")
+        expectedResult = {'status': 'error: The value for dark tokens must '
+                          + 'be an integer.'}
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result, expectedResult)
+        
+    def test913_NullDarkNominalLightBlankSize(self):
+        self.setDark()
         expectedResult = {'status': 'error: The value for dark tokens must '
                           + 'be an integer.'}
         result = create._create(self.inputDictionary)

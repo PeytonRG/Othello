@@ -45,7 +45,10 @@ def _create(inputDictionary):
         blank = inputDictionary["blank"]
     except KeyError:
         blank = 0
-    
+    except TypeError:
+        errorList.append("The value for blank spaces must " 
+            + "be an integer.")
+        
     try:
         lengthWidth = inputDictionary["size"]
     except KeyError:

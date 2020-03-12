@@ -375,3 +375,11 @@ class CreateTest(TestCase):
                                     '8e210182a8d6b73a84028562ab2c87d190b9ada'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
+        
+# Sad Path Acceptance Tests
+    def test900_AboveBoundLightNominalDarkBlankSize(self):
+        self.setLight(10)
+        expectedResult = {'status': 'error: The value for light tokens is '
+                          + 'above the accepted range.'}
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result, expectedResult)

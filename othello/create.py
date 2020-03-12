@@ -13,7 +13,10 @@ def _create(inputDictionary):
         dark = inputDictionary["dark"]
     except KeyError:
         dark = 2
-    blank = inputDictionary["blank"]
+    try:
+        blank = inputDictionary["blank"]
+    except KeyError:
+        blank = 0
     lengthWidth = inputDictionary["size"]
     
     boardSize = lengthWidth**2

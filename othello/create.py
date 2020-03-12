@@ -17,7 +17,10 @@ def _create(inputDictionary):
         blank = inputDictionary["blank"]
     except KeyError:
         blank = 0
-    lengthWidth = inputDictionary["size"]
+    try:
+        lengthWidth = inputDictionary["size"]
+    except KeyError:
+        lengthWidth = 8
     
     boardSize = lengthWidth**2
     boardMidpoint = boardSize / 2 - 1

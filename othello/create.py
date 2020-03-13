@@ -7,12 +7,11 @@ import hashlib
 
 def _create(inputDictionary):
     errorList = []
-    light = 0
     dark = 0
     blank = 0
     lengthWidth = 0
     
-    light = _validateLight(inputDictionary, errorList, light)
+    light = _validateLight(inputDictionary, errorList)
     
     dark = _validateDark(inputDictionary, errorList, dark)
     
@@ -43,29 +42,7 @@ def _create(inputDictionary):
         }
     return result
 
-def _generateBoard(light, dark, blank, lengthWidth):
-    boardSize = lengthWidth ** 2
-    boardMidpoint = boardSize / 2 - 1
-    distanceFromMidpoint = lengthWidth / 2
-    board = []
-    
-    for index in range(boardSize):
-        # the token indexed either n below or n + 1 above the midpoint
-        # should be a light token, where n is distanceFromMidpoint, or half
-        # the length/width of the board
-        if ((boardMidpoint - distanceFromMidpoint) == index or 
-            (boardMidpoint + distanceFromMidpoint + 1) == index):
-            board.append(light)
-        # likewise, the token indexed at n + 1 below the midpoint
-        # or n above the midpoint should be a dark token
-        elif ((boardMidpoint - distanceFromMidpoint + 1) == index or 
-              (boardMidpoint + distanceFromMidpoint) == index):
-            board.append(dark)
-        else:
-            board.append(blank)
-    return board
-
-def _validateLight(inputDictionary, errorList, light):
+def _validateLight(inputDictionary, errorList):
     try:
         light = inputDictionary["light"]
         if not isinstance(light, int):
@@ -76,6 +53,7 @@ def _validateLight(inputDictionary, errorList, light):
     except KeyError:
         light = 1
     except TypeError:
+        light = 1
         errorList.append(
             "The value for light tokens must " + 
             "be an integer in the range [0, 9].")
@@ -128,6 +106,28 @@ def _validateSize(inputDictionary, errorList, lengthWidth):
             "The value for board size must " + 
             "be an even integer in the range [6, 16].")
     return lengthWidth
+
+def _generateBoard(light, dark, blank, lengthWidth):
+    boardSize = lengthWidth ** 2
+    boardMidpoint = boardSize / 2 - 1
+    distanceFromMidpoint = lengthWidth / 2
+    board = []
+    
+    for index in range(boardSize):
+        # the token indexed either n below or n + 1 above the midpoint
+        # should be a light token, where n is distanceFromMidpoint, or half
+        # the length/width of the board
+        if ((boardMidpoint - distanceFromMidpoint) == index or 
+            (boardMidpoint + distanceFromMidpoint + 1) == index):
+            board.append(light)
+        # likewise, the token indexed at n + 1 below the midpoint
+        # or n above the midpoint should be a dark token
+        elif ((boardMidpoint - distanceFromMidpoint + 1) == index or 
+              (boardMidpoint + distanceFromMidpoint) == index):
+            board.append(dark)
+        else:
+            board.append(blank)
+    return board
 
 def _generateHash(board, light, dark, blank):
     boardString = "".join(str(space) for space in board)

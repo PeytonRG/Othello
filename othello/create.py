@@ -39,6 +39,8 @@ def _create(inputDictionary):
     
     try:
         blank = inputDictionary["blank"]
+        if not isinstance(blank, int):
+            raise TypeError
         if blank > 9 or blank < 0:
             errorList.append("The value for blank spaces must " 
             + "be an integer in the range [0, 9].")

@@ -435,29 +435,29 @@ class CreateTest(TestCase):
         
     def test920_AboveBoundBlankNominalLightDarkSize(self):
         self.setBlank(10)
-        expectedResult = {'status': 'error: The value for blank spaces is '
-                          + 'above the accepted range.'}
+        expectedResult = {'status': 'error: The value for blank spaces must '
+                          + 'be an integer in the range [0, 9].'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
     def test921_BelowBoundBlankNominalLightDarkSize(self):
         self.setBlank(-1)
-        expectedResult = {'status': 'error: The value for blank spaces is '
-                          + 'below the accepted range.'}
+        expectedResult = {'status': 'error: The value for blank spaces must '
+                          + 'be an integer in the range [0, 9].'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
     def test922_NonIntegerBlankNominalLightDarkSize(self):
         self.setBlank("b")
         expectedResult = {'status': 'error: The value for blank spaces must '
-                          + 'be an integer.'}
+                          + 'be an integer in the range [0, 9].'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
     
     def test923_NullBlankNominalLightDarkSize(self):
         self.setBlank()
         expectedResult = {'status': 'error: The value for blank spaces must '
-                          + 'be an integer.'}
+                          + 'be an integer in the range [0, 9].'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         

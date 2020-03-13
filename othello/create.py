@@ -40,6 +40,8 @@ def _create(inputDictionary):
     return result
 
 def _validateLight(inputDictionary, errorList):
+    errorMessage = ("The value for light tokens must be an integer in the " + 
+                    "range [0, 9].")
     try:
         light = inputDictionary["light"]
         if isinstance(light, float):
@@ -50,15 +52,12 @@ def _validateLight(inputDictionary, errorList):
             light = int(light)
             
         if light > 9 or light < 0:
-            errorList.append("The value for light tokens must " + 
-                             "be an integer in the range [0, 9].")
+            errorList.append(errorMessage)
     except KeyError:
         light = 1
     except (ValueError, TypeError):
         light = 1
-        errorList.append(
-            "The value for light tokens must " + 
-            "be an integer in the range [0, 9].")
+        errorList.append(errorMessage)
     return light
 
 def _validateDark(inputDictionary, errorList):

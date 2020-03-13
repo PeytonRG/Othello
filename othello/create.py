@@ -12,18 +12,7 @@ def _create(inputDictionary):
     blank = 0
     lengthWidth = 0
     
-    try:
-        light = inputDictionary["light"]
-        if not isinstance(light, int):
-            raise TypeError
-        if light > 9 or light < 0:
-            errorList.append("The value for light tokens must " 
-            + "be an integer in the range [0, 9].")
-    except KeyError:
-        light = 1
-    except TypeError:
-        errorList.append("The value for light tokens must " 
-            + "be an integer in the range [0, 9].")
+    light = _validateLight(inputDictionary, errorList, light)
     
     try:
         dark = inputDictionary["dark"]
@@ -109,4 +98,19 @@ def _generateBoard(light, dark, blank, lengthWidth):
         else:
             board.append(blank)
     return board
+
+def _validateLight(inputDictionary, errorList, light):
+    try:
+        light = inputDictionary["light"]
+        if not isinstance(light, int):
+            raise TypeError
+        if light > 9 or light < 0:
+            errorList.append("The value for light tokens must " + "be an integer in the range [0, 9].")
+    except KeyError:
+        light = 1
+    except TypeError:
+        errorList.append(
+            "The value for light tokens must " + "be an integer in the range [0, 9].")
+    return light
+
 

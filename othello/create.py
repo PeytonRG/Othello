@@ -7,17 +7,14 @@ import hashlib
 
 def _create(inputDictionary):
     errorList = []
-    dark = 0
-    blank = 0
-    lengthWidth = 0
     
     light = _validateLight(inputDictionary, errorList)
     
-    dark = _validateDark(inputDictionary, errorList, dark)
+    dark = _validateDark(inputDictionary, errorList)
     
-    blank = _validateBlank(inputDictionary, errorList, blank)
+    blank = _validateBlank(inputDictionary, errorList)
         
-    lengthWidth = _validateSize(inputDictionary, errorList, lengthWidth)
+    lengthWidth = _validateSize(inputDictionary, errorList)
            
     if light == dark or light == blank or dark == blank:
         errorList.append("The values of light, dark, " 

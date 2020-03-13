@@ -53,6 +53,7 @@ def _validateLight(inputDictionary, errorList):
             
         if light > 9 or light < 0:
             errorList.append(errorMessage)
+            
     except KeyError:
         light = 1
     except (ValueError, TypeError):
@@ -74,6 +75,7 @@ def _validateDark(inputDictionary, errorList):
             
         if dark > 9 or dark < 0:
             errorList.append(errorMessage)
+            
     except KeyError:
         dark = 2
     except (ValueError, TypeError):
@@ -95,6 +97,7 @@ def _validateBlank(inputDictionary, errorList):
             
         if blank > 9 or blank < 0:
             errorList.append(errorMessage)
+            
     except KeyError:
         blank = 0
     except (ValueError, TypeError):
@@ -116,6 +119,7 @@ def _validateSize(inputDictionary, errorList):
             
         if (lengthWidth % 2 != 0) or (lengthWidth > 16) or (lengthWidth < 6):
             errorList.append(errorMessage)
+            
     except KeyError:
         lengthWidth = 8
     except (ValueError, TypeError):

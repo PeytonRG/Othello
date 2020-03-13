@@ -29,7 +29,7 @@ def _create(inputDictionary):
     
     board = _generateBoard(light, dark, blank, lengthWidth)
             
-    integrity = _generateHash(board)
+    integrity = _generateHash(board, light, dark, blank)
     
     result = {
         "board": board,
@@ -129,7 +129,7 @@ def _validateSize(inputDictionary, errorList, lengthWidth):
             "be an even integer in the range [6, 16].")
     return lengthWidth
 
-def _generateHash(board):
+def _generateHash(board, light, dark, blank):
     boardString = "".join(str(space) for space in board)
     integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/{dark}")
     return integrity

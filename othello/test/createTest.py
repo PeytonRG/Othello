@@ -394,14 +394,14 @@ class CreateTest(TestCase):
     def test902_NonIntegerLightNominalDarkBlankSize(self):
         self.setLight("w")
         expectedResult = {'status': 'error: The value for light tokens must '
-                          + 'be an even integer in the range [0, 9].'}
+                          + 'be an integer in the range [0, 9].'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
     def test903_NullLightNominalDarkBlankSize(self):
         self.setLight()
         expectedResult = {'status': 'error: The value for light tokens must '
-                          + 'be an even integer in the range [0, 9].'}
+                          + 'be an integer in the range [0, 9].'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         

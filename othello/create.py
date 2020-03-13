@@ -29,8 +29,7 @@ def _create(inputDictionary):
     
     board = _generateBoard(light, dark, blank, lengthWidth)
             
-    boardString = "".join(str(space) for space in board)
-    integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/{dark}")
+    integrity = _generateHash(board)
     
     result = {
         "board": board,
@@ -72,12 +71,14 @@ def _validateLight(inputDictionary, errorList, light):
         if not isinstance(light, int):
             raise TypeError
         if light > 9 or light < 0:
-            errorList.append("The value for light tokens must " + "be an integer in the range [0, 9].")
+            errorList.append("The value for light tokens must " + 
+                             "be an integer in the range [0, 9].")
     except KeyError:
         light = 1
     except TypeError:
         errorList.append(
-            "The value for light tokens must " + "be an integer in the range [0, 9].")
+            "The value for light tokens must " + 
+            "be an integer in the range [0, 9].")
     return light
 
 def _validateDark(inputDictionary, errorList, dark):
@@ -86,12 +87,14 @@ def _validateDark(inputDictionary, errorList, dark):
         if not isinstance(dark, int):
             raise TypeError
         if dark > 9 or dark < 0:
-            errorList.append("The value for dark tokens must " + "be an integer in the range [0, 9].")
+            errorList.append("The value for dark tokens must " + 
+                             "be an integer in the range [0, 9].")
     except KeyError:
         dark = 2
     except TypeError:
         errorList.append(
-            "The value for dark tokens must " + "be an integer in the range [0, 9].")
+            "The value for dark tokens must " + 
+            "be an integer in the range [0, 9].")
     return dark
 
 def _validateBlank(inputDictionary, errorList, blank):
@@ -100,12 +103,14 @@ def _validateBlank(inputDictionary, errorList, blank):
         if not isinstance(blank, int):
             raise TypeError
         if blank > 9 or blank < 0:
-            errorList.append("The value for blank spaces must " + "be an integer in the range [0, 9].")
+            errorList.append("The value for blank spaces must " + 
+                             "be an integer in the range [0, 9].")
     except KeyError:
         blank = 0
     except TypeError:
         errorList.append(
-            "The value for blank spaces must " + "be an integer in the range [0, 9].")
+            "The value for blank spaces must " + 
+            "be an integer in the range [0, 9].")
     return blank
 
 def _validateSize(inputDictionary, errorList, lengthWidth):
@@ -114,13 +119,21 @@ def _validateSize(inputDictionary, errorList, lengthWidth):
         if not isinstance(lengthWidth, int):
             raise TypeError
         if (lengthWidth % 2 != 0) or (lengthWidth > 16) or (lengthWidth < 6):
-            errorList.append("The value for board size must " + "be an even integer in the range [6, 16].")
+            errorList.append("The value for board size must " + 
+                             "be an even integer in the range [6, 16].")
     except KeyError:
         lengthWidth = 8
     except TypeError:
         errorList.append(
-            "The value for board size must " + "be an even integer in the range [6, 16].")
+            "The value for board size must " + 
+            "be an even integer in the range [6, 16].")
     return lengthWidth
+
+def _generateHash(board):
+    boardString = "".join(str(space) for space in board)
+    integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/{dark}")
+    return integrity
+
 
 
 

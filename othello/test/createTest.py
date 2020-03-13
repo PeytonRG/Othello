@@ -10,12 +10,6 @@ import json
 class CreateTest(TestCase):
     
     def setUp(self):
-        self.nominalLight = 1
-        self.nominalDark = 2
-        self.nominalBlank = 0
-        self.nominalSize = 8
-        self.errorValue = "error:"
-        self.errorKey = "error"
         self.inputDictionary = {}
         
     def tearDown(self):

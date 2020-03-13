@@ -543,3 +543,10 @@ class CreateTest(TestCase):
                           + 'be an integer in the range [0, 9].'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
+        
+    def test273_NonIntegerSizeWithinBoundsNominalLightDarkBlank(self):
+        self.setSize(8.0)
+        expectedResult = {'status': 'error: The value for board size must '
+                          + 'be an even integer in the range [6, 16].'}
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result, expectedResult)

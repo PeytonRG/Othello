@@ -43,7 +43,7 @@ def _validateLight(inputDictionary, errorList):
     try:
         light = inputDictionary["light"]
         if isinstance(light, float):
-            raise TypeError
+            raise ValueError
         else:
             # cast the string from the HTTP request into int
             # will raise ValueError upon failure
@@ -54,7 +54,7 @@ def _validateLight(inputDictionary, errorList):
                              "be an integer in the range [0, 9].")
     except KeyError:
         light = 1
-    except (ValueError, TypeError):
+    except ValueError:
         light = 1
         errorList.append(
             "The value for light tokens must " + 
@@ -65,7 +65,7 @@ def _validateDark(inputDictionary, errorList):
     try:
         dark = inputDictionary["dark"]
         if isinstance(dark, float):
-            raise TypeError
+            raise ValueError
         else:
             # cast the string from the HTTP request into int
             # will raise ValueError upon failure
@@ -76,7 +76,8 @@ def _validateDark(inputDictionary, errorList):
                              "be an integer in the range [0, 9].")
     except KeyError:
         dark = 2
-    except (ValueError, TypeError):
+    except ValueError:
+        dark = 2
         errorList.append(
             "The value for dark tokens must " + 
             "be an integer in the range [0, 9].")
@@ -85,14 +86,20 @@ def _validateDark(inputDictionary, errorList):
 def _validateBlank(inputDictionary, errorList):
     try:
         blank = inputDictionary["blank"]
-        if not isinstance(blank, int):
-            raise TypeError
+        if isinstance(blank, float):
+            raise ValueError
+        else:
+            # cast the string from the HTTP request into int
+            # will raise ValueError upon failure
+            blank = int(blank)
+            
         if blank > 9 or blank < 0:
             errorList.append("The value for blank spaces must " + 
                              "be an integer in the range [0, 9].")
     except KeyError:
         blank = 0
-    except TypeError:
+    except ValueError:
+        blank = 0
         errorList.append(
             "The value for blank spaces must " + 
             "be an integer in the range [0, 9].")
@@ -101,14 +108,20 @@ def _validateBlank(inputDictionary, errorList):
 def _validateSize(inputDictionary, errorList):
     try:
         lengthWidth = inputDictionary["size"]
-        if not isinstance(lengthWidth, int):
-            raise TypeError
+        if isinstance(lengthWidth, float):
+            raise ValueError
+        else:
+            # cast the string from the HTTP request into int
+            # will raise ValueError upon failure
+            lengthWidth = int(lengthWidth)
+            
         if (lengthWidth % 2 != 0) or (lengthWidth > 16) or (lengthWidth < 6):
             errorList.append("The value for board size must " + 
                              "be an even integer in the range [6, 16].")
     except KeyError:
         lengthWidth = 8
-    except TypeError:
+    except ValueError:
+        lengthWidth = 8
         errorList.append(
             "The value for board size must " + 
             "be an even integer in the range [6, 16].")

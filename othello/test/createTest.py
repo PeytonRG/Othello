@@ -379,29 +379,29 @@ class CreateTest(TestCase):
 # Sad Path Acceptance Tests
     def test900_AboveBoundLightNominalDarkBlankSize(self):
         self.setLight(10)
-        expectedResult = {'status': 'error: The value for light tokens is '
-                          + 'above the accepted range.'}
+        expectedResult = {'status': 'error: The value for light tokens must '
+                          + 'be an integer in the range [0, 9].'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
     def test901_BelowBoundLightNominalDarkBlankSize(self):
         self.setLight(-1)
-        expectedResult = {'status': 'error: The value for light tokens is '
-                          + 'below the accepted range.'}
+        expectedResult = {'status': 'error: The value for light tokens must '
+                          + 'be an integer in the range [0, 9].'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
     def test902_NonIntegerLightNominalDarkBlankSize(self):
         self.setLight("w")
         expectedResult = {'status': 'error: The value for light tokens must '
-                          + 'be an integer.'}
+                          + 'be an even integer in the range [0, 9].'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
     def test903_NullLightNominalDarkBlankSize(self):
         self.setLight()
         expectedResult = {'status': 'error: The value for light tokens must '
-                          + 'be an integer.'}
+                          + 'be an even integer in the range [0, 9].'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         

@@ -82,6 +82,8 @@ def _validateDark(inputDictionary, errorList):
     return dark
 
 def _validateBlank(inputDictionary, errorList):
+    errorMessage = ("The value for blank spaces must be an integer in the " + 
+                    "range [0, 9].")
     try:
         blank = inputDictionary["blank"]
         if isinstance(blank, float):
@@ -92,18 +94,17 @@ def _validateBlank(inputDictionary, errorList):
             blank = int(blank)
             
         if blank > 9 or blank < 0:
-            errorList.append("The value for blank spaces must " + 
-                             "be an integer in the range [0, 9].")
+            errorList.append(errorMessage)
     except KeyError:
         blank = 0
     except (ValueError, TypeError):
         blank = 0
-        errorList.append(
-            "The value for blank spaces must " + 
-            "be an integer in the range [0, 9].")
+        errorList.append(errorMessage)
     return blank
 
 def _validateSize(inputDictionary, errorList):
+    errorMessage = ("The value for board size must be an even integer in " + 
+                    "the range [6, 16].")
     try:
         lengthWidth = inputDictionary["size"]
         if isinstance(lengthWidth, float):
@@ -114,15 +115,12 @@ def _validateSize(inputDictionary, errorList):
             lengthWidth = int(lengthWidth)
             
         if (lengthWidth % 2 != 0) or (lengthWidth > 16) or (lengthWidth < 6):
-            errorList.append("The value for board size must " + 
-                             "be an even integer in the range [6, 16].")
+            errorList.append(errorMessage)
     except KeyError:
         lengthWidth = 8
     except (ValueError, TypeError):
         lengthWidth = 8
-        errorList.append(
-            "The value for board size must " + 
-            "be an even integer in the range [6, 16].")
+        errorList.append(errorMessage)
     return lengthWidth
 
 def _generateBoard(light, dark, blank, lengthWidth):

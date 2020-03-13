@@ -32,62 +32,6 @@ class CreateTest(TestCase):
         
     def setSize(self, size = None):
         self.inputDictionary["size"] = size
-        
-    # Unit Tests
-    def test210_ShouldReturnOutputDictionary(self):
-        self.setLight(1)
-        self.setDark(2)
-        self.setBlank(0)
-        self.setSize(8)
-        result = create._create(self.inputDictionary)
-        self.assertIsInstance(result, dict)
-        
-    def test220_ShouldReturnBoardWithLengthEqualsSizeSquared(self):
-        self.setLight(1)
-        self.setDark(2)
-        self.setBlank(0)
-        self.setSize(8)
-        expectedResult = self.inputDictionary["size"]**2
-        result = create._create(self.inputDictionary)
-        self.assertEqual(len(result["board"]), expectedResult)
-        
-    def test230_ShouldReturnCorrectBoardKeyValuePair(self):
-        self.setLight(1)
-        self.setDark(2)
-        self.setBlank(0)
-        self.setSize(8)
-        expectedResult = [0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,
-                          0,0,0,0,0,0,0,0, 0,0,0,1,2,0,0,0, 
-                          0,0,0,2,1,0,0,0, 0,0,0,0,0,0,0,0, 
-                          0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0]
-        result = create._create(self.inputDictionary)
-        self.assertEqual(result["board"], expectedResult)
-        
-    def test240_ShouldReturnCorrectTokenKeyValuePair(self):
-        self.setLight(1)
-        self.setDark(2)
-        self.setBlank(0)
-        self.setSize(8)
-        expectedResult = {'light': 1,'dark': 2, 'blank': 0}
-        result = create._create(self.inputDictionary)
-        self.assertEqual(result["tokens"], expectedResult)
-        
-    def test250_ShouldReturnCorrectIntegrityKeyValuePair(self):
-        self.setLight(1)
-        self.setDark(2)
-        self.setBlank(0)
-        self.setSize(8)
-        expectedResult = 'b11fcf5f9ac9d3b8cea8085208e210182a8d6b73a84028562ab2c87d190b9ada'
-        result = create._create(self.inputDictionary)
-        self.assertEqual(result["integrity"], expectedResult)
-    
-    def test260_ShouldReturnStatusKeyValuePairWithStringValue(self):
-        self.setLight(1)
-        self.setDark(2)
-        self.setBlank(0)
-        self.setSize(8)
-        result = create._create(self.inputDictionary)
-        self.assertIsInstance(result["status"], str)
     
 # Happy Path Acceptance Tests
     def test010_AllParamsNominal(self):
@@ -520,5 +464,68 @@ class CreateTest(TestCase):
         self.setBlank(2)
         expectedResult = {'status': 'error: The values of light, dark, '
                           + 'and blank must be unique.'}
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result, expectedResult)
+        
+# Unit Tests
+    def test210_ShouldReturnOutputDictionary(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(0)
+        self.setSize(8)
+        result = create._create(self.inputDictionary)
+        self.assertIsInstance(result, dict)
+        
+    def test220_ShouldReturnBoardWithLengthEqualsSizeSquared(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(0)
+        self.setSize(8)
+        expectedResult = self.inputDictionary["size"]**2
+        result = create._create(self.inputDictionary)
+        self.assertEqual(len(result["board"]), expectedResult)
+        
+    def test230_ShouldReturnCorrectBoardKeyValuePair(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(0)
+        self.setSize(8)
+        expectedResult = [0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,
+                          0,0,0,0,0,0,0,0, 0,0,0,1,2,0,0,0, 
+                          0,0,0,2,1,0,0,0, 0,0,0,0,0,0,0,0, 
+                          0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0]
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result["board"], expectedResult)
+        
+    def test240_ShouldReturnCorrectTokenKeyValuePair(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(0)
+        self.setSize(8)
+        expectedResult = {'light': 1,'dark': 2, 'blank': 0}
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result["tokens"], expectedResult)
+        
+    def test250_ShouldReturnCorrectIntegrityKeyValuePair(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(0)
+        self.setSize(8)
+        expectedResult = 'b11fcf5f9ac9d3b8cea8085208e210182a8d6b73a84028562ab2c87d190b9ada'
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result["integrity"], expectedResult)
+    
+    def test260_ShouldReturnStatusKeyValuePairWithStringValue(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(0)
+        self.setSize(8)
+        result = create._create(self.inputDictionary)
+        self.assertIsInstance(result["status"], str)
+        
+    def test270_NonIntegerLightWithinBoundsNominalDarkBlankSize(self):
+        self.setLight(3.0)
+        expectedResult = {'status': 'error: The value for light tokens must '
+                          + 'be an integer in the range [0, 9].'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)

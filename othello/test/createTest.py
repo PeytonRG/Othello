@@ -13,7 +13,7 @@ class CreateTest(TestCase):
         self.inputDictionary = {}
         
     def tearDown(self):
-        self.inputDictionary = {}
+        TestCase.tearDown(self)
     
     def setLight(self, light = None):
         self.inputDictionary["light"] = light

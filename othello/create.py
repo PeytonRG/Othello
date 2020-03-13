@@ -15,12 +15,12 @@ def _create(inputDictionary):
         light = inputDictionary["light"]
         if light > 9 or light < 0:
             errorList.append("The value for light tokens must " 
-            + "be an even integer in the range [0, 9].")
+            + "be an integer in the range [0, 9].")
     except KeyError:
         light = 1
     except TypeError:
         errorList.append("The value for light tokens must " 
-            + "be an even integer in the range [0, 9].")
+            + "be an integer in the range [0, 9].")
     
     try:
         if inputDictionary["dark"] > 9:

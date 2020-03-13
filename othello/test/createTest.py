@@ -5,7 +5,6 @@
 
 from unittest import TestCase
 import othello.create as create
-import json
 
 class CreateTest(TestCase):
     

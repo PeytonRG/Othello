@@ -42,14 +42,19 @@ def _create(inputDictionary):
 def _validateLight(inputDictionary, errorList):
     try:
         light = inputDictionary["light"]
-        if not isinstance(light, int):
+        if isinstance(light, float):
             raise TypeError
+        else:
+            # cast the string from the HTTP request into int
+            # will raise ValueError upon failure
+            light = int(light)
+            
         if light > 9 or light < 0:
             errorList.append("The value for light tokens must " + 
                              "be an integer in the range [0, 9].")
     except KeyError:
         light = 1
-    except TypeError:
+    except (ValueError, TypeError):
         light = 1
         errorList.append(
             "The value for light tokens must " + 

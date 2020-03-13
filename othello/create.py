@@ -64,14 +64,19 @@ def _validateLight(inputDictionary, errorList):
 def _validateDark(inputDictionary, errorList):
     try:
         dark = inputDictionary["dark"]
-        if not isinstance(dark, int):
+        if isinstance(dark, float):
             raise TypeError
+        else:
+            # cast the string from the HTTP request into int
+            # will raise ValueError upon failure
+            dark = int(dark)
+            
         if dark > 9 or dark < 0:
             errorList.append("The value for dark tokens must " + 
                              "be an integer in the range [0, 9].")
     except KeyError:
         dark = 2
-    except TypeError:
+    except (ValueError, TypeError):
         errorList.append(
             "The value for dark tokens must " + 
             "be an integer in the range [0, 9].")

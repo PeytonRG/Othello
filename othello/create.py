@@ -70,27 +70,9 @@ def _create(inputDictionary):
     if len(errorList) > 0:
         return {"status": "error: " + errorList[0]}
     
-    boardSize = lengthWidth**2
-    boardMidpoint = boardSize / 2 - 1
-    distanceFromMidpoint = lengthWidth / 2
-    
-    board = []
-    for index in range(boardSize):
-        # the token indexed either n below or n + 1 above the midpoint
-        # should be a light token, where n is distanceFromMidpoint, or half
-        # the length/width of the board
-        if ((boardMidpoint - distanceFromMidpoint) == index or 
-            (boardMidpoint + distanceFromMidpoint + 1) == index):
-            board.append(light)
-        # likewise, the token indexed at n + 1 below the midpoint
-        # or n above the midpoint should be a dark token
-        elif ((boardMidpoint - distanceFromMidpoint + 1) == index or 
-            (boardMidpoint + distanceFromMidpoint) == index):
-            board.append(dark)
-        else:
-            board.append(blank)
+    board = _generateBoard(light, dark, blank, lengthWidth)
             
-    boardString = "".join(str(element) for element in board)
+    boardString = "".join(str(space) for space in board)
     integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/{dark}")
     
     
@@ -105,3 +87,25 @@ def _create(inputDictionary):
         "status": "ok"
         }
     return result
+
+def _generateBoard(light, dark, blank, lengthWidth):
+    boardSize = lengthWidth ** 2
+    boardMidpoint = boardSize / 2 - 1
+    distanceFromMidpoint = lengthWidth / 2
+    board = []
+    
+    for index in range(boardSize):
+        # the token indexed either n below or n + 1 above the midpoint
+        # should be a light token, where n is distanceFromMidpoint, or half
+        # the length/width of the board
+        if ((boardMidpoint - distanceFromMidpoint) == index or 
+            (boardMidpoint + distanceFromMidpoint + 1) == index):
+            board.append(light)
+        # likewise, the token indexed at n + 1 below the midpoint
+        # or n above the midpoint should be a dark token
+        elif ((boardMidpoint - distanceFromMidpoint + 1) == index or (boardMidpoint + distanceFromMidpoint) == index):
+            board.append(dark)
+        else:
+            board.append(blank)
+    return board
+

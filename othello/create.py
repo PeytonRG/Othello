@@ -56,7 +56,7 @@ def _validateLight(inputDictionary, errorList):
             "be an integer in the range [0, 9].")
     return light
 
-def _validateDark(inputDictionary, errorList, dark):
+def _validateDark(inputDictionary, errorList):
     try:
         dark = inputDictionary["dark"]
         if not isinstance(dark, int):
@@ -72,7 +72,7 @@ def _validateDark(inputDictionary, errorList, dark):
             "be an integer in the range [0, 9].")
     return dark
 
-def _validateBlank(inputDictionary, errorList, blank):
+def _validateBlank(inputDictionary, errorList):
     try:
         blank = inputDictionary["blank"]
         if not isinstance(blank, int):
@@ -88,7 +88,7 @@ def _validateBlank(inputDictionary, errorList, blank):
             "be an integer in the range [0, 9].")
     return blank
 
-def _validateSize(inputDictionary, errorList, lengthWidth):
+def _validateSize(inputDictionary, errorList):
     try:
         lengthWidth = inputDictionary["size"]
         if not isinstance(lengthWidth, int):

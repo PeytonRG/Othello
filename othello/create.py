@@ -23,18 +23,15 @@ def _create(inputDictionary):
             + "be an integer in the range [0, 9].")
     
     try:
-        if inputDictionary["dark"] > 9:
-            errorList.append("The value for dark tokens is " 
-            + "above the accepted range.")
-        elif inputDictionary["dark"] < 0:
-            errorList.append("The value for dark tokens is " 
-            + "below the accepted range.")
         dark = inputDictionary["dark"]
+        if dark > 9 or dark < 0:
+            errorList.append("The value for dark tokens must " 
+            + "be an integer in the range [0, 9].")
     except KeyError:
         dark = 2
     except TypeError:
         errorList.append("The value for dark tokens must " 
-            + "be an integer.")
+            + "be an integer in the range [0, 9].")
     
     try:
         if inputDictionary["blank"] > 9:

@@ -26,6 +26,18 @@ class CreateTest(TestCase):
         
     def setSize(self, size = None):
         self.inputDictionary["size"] = size
+        
+#    Desired level of confidence:    boundary value analysis
+#    Input-output Analysis
+#        inputs:        light -> integer, .GE.0.LE9, optional, unvalidated,
+#                                defaults to 1
+#                       dark -> integer, .GE.0.LE9, optional, unvalidated
+#                                defaults to 2
+#                       blank -> integer, .GE.0.LE9, optional, unvalidated
+#                                defaults to 0
+#                       size -> even integer, .GE.6.LE16, optional, unvalidated
+#                                defaults to 0
+#        outputs:    dictionary
     
 # Happy Path Acceptance Tests
     def test010_AllParamsNominal(self):

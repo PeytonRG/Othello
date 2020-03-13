@@ -1,5 +1,6 @@
 '''
     Created on March 11, 2020
+    Last Modified March 12, 2020
     @author: Peyton Gasink
 '''
 import hashlib
@@ -75,7 +76,6 @@ def _create(inputDictionary):
     boardString = "".join(str(space) for space in board)
     integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/{dark}")
     
-    
     result = {
         "board": board,
         "tokens": {
@@ -103,7 +103,8 @@ def _generateBoard(light, dark, blank, lengthWidth):
             board.append(light)
         # likewise, the token indexed at n + 1 below the midpoint
         # or n above the midpoint should be a dark token
-        elif ((boardMidpoint - distanceFromMidpoint + 1) == index or (boardMidpoint + distanceFromMidpoint) == index):
+        elif ((boardMidpoint - distanceFromMidpoint + 1) == index or 
+              (boardMidpoint + distanceFromMidpoint) == index):
             board.append(dark)
         else:
             board.append(blank)

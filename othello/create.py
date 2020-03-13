@@ -26,6 +26,8 @@ def _create(inputDictionary):
     
     try:
         dark = inputDictionary["dark"]
+        if not isinstance(dark, int):
+            raise TypeError
         if dark > 9 or dark < 0:
             errorList.append("The value for dark tokens must " 
             + "be an integer in the range [0, 9].")

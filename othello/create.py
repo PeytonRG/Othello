@@ -52,6 +52,8 @@ def _create(inputDictionary):
         
     try:
         lengthWidth = inputDictionary["size"]
+        if not isinstance(lengthWidth, int):
+            raise TypeError
         if (lengthWidth % 2 != 0) or (lengthWidth > 16) or (lengthWidth < 6):
             errorList.append("The value for board size must " 
             + "be an even integer in the range [6, 16].")

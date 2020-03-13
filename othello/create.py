@@ -54,7 +54,7 @@ def _validateLight(inputDictionary, errorList):
                              "be an integer in the range [0, 9].")
     except KeyError:
         light = 1
-    except ValueError:
+    except (ValueError, TypeError):
         light = 1
         errorList.append(
             "The value for light tokens must " + 
@@ -76,7 +76,7 @@ def _validateDark(inputDictionary, errorList):
                              "be an integer in the range [0, 9].")
     except KeyError:
         dark = 2
-    except ValueError:
+    except (ValueError, TypeError):
         dark = 2
         errorList.append(
             "The value for dark tokens must " + 
@@ -98,7 +98,7 @@ def _validateBlank(inputDictionary, errorList):
                              "be an integer in the range [0, 9].")
     except KeyError:
         blank = 0
-    except ValueError:
+    except (ValueError, TypeError):
         blank = 0
         errorList.append(
             "The value for blank spaces must " + 
@@ -120,7 +120,7 @@ def _validateSize(inputDictionary, errorList):
                              "be an even integer in the range [6, 16].")
     except KeyError:
         lengthWidth = 8
-    except ValueError:
+    except (ValueError, TypeError):
         lengthWidth = 8
         errorList.append(
             "The value for board size must " + 

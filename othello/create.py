@@ -34,18 +34,15 @@ def _create(inputDictionary):
             + "be an integer in the range [0, 9].")
     
     try:
-        if inputDictionary["blank"] > 9:
-            errorList.append("The value for blank spaces is " 
-            + "above the accepted range.")
-        elif inputDictionary["blank"] < 0:
-            errorList.append("The value for blank spaces is " 
-            + "below the accepted range.")
         blank = inputDictionary["blank"]
+        if blank > 9 or blank < 0:
+            errorList.append("The value for blank spaces must " 
+            + "be an integer in the range [0, 9].")
     except KeyError:
         blank = 0
     except TypeError:
         errorList.append("The value for blank spaces must " 
-            + "be an integer.")
+            + "be an integer in the range [0, 9].")
         
     try:
         lengthWidth = inputDictionary["size"]

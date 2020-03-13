@@ -504,3 +504,12 @@ class CreateTest(TestCase):
                           + 'and blank must be unique.'}
         result = create._create(self.inputDictionary)
         self.assertEqual(result, expectedResult)
+        
+    def test941_NominalLightDarkBlankEqualsLightNominalSize(self):
+        self.setLight(5)
+        self.setDark(2)
+        self.setBlank(5)
+        expectedResult = {'status': 'error: The values of light, dark, '
+                          + 'and blank must be unique.'}
+        result = create._create(self.inputDictionary)
+        self.assertEqual(result, expectedResult)

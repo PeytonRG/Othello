@@ -13,6 +13,8 @@ def _create(inputDictionary):
     
     try:
         light = inputDictionary["light"]
+        if not isinstance(light, int):
+            raise TypeError
         if light > 9 or light < 0:
             errorList.append("The value for light tokens must " 
             + "be an integer in the range [0, 9].")

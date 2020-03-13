@@ -6,6 +6,10 @@ import hashlib
 
 def _create(inputDictionary):
     errorList = []
+    light = 0
+    dark = 0
+    blank = 0
+    lengthWidth = 0
     
     try:
         if inputDictionary["light"] > 9:
@@ -59,6 +63,10 @@ def _create(inputDictionary):
     except TypeError:
         errorList.append("The value for board size must " 
             + "be an even integer in the range [6, 16].")
+           
+    if light == dark or light == blank or dark == blank:
+        errorList.append("The values of light, dark, " 
+            + "and blank must be unique.")
         
     if len(errorList) > 0:
         return {"status": "error: " + errorList[0]}

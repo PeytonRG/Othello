@@ -64,6 +64,11 @@ def _validateBlank(inputDictionary, errorList):
         errorList.append(errorMessage)
     return blank
 
+def _validateUnqiueLightDarkBlankValues(light, dark, blank, errorList):
+    if light == dark or light == blank or dark == blank:
+        errorList.append("The values of light, dark, " 
+            + "and blank must be unique.")
+
 def _validateSize(inputDictionary, errorList):
     errorMessage = ("The value for board size must be an even integer in " + 
                     "the range [6, 16].")

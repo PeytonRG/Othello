@@ -68,12 +68,21 @@ class CreateTest(TestCase):
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
-    def test020_LowBoundLightNominalDarkBlankBoardIntegrity(self):
+    def test021_LowBoundLightNominalDarkBlankBoardIntegrity(self):
         self.setLight(0)
         self.setDark(2)
         self.setBlank(1)
         self.setBoard([1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,2,1,1,1,1,2,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1])
         self.setIntegrity('1b7e612b959852acbaf6b55d3f6b8dab2cdc32248a58a89dcf022ae80e5b36de')
+        expectedResult = {'status': 'ok'}
+        result = status._status(self.inputDictionary)
+        self.assertEqual(result, expectedResult)
+    
+    def test022_MissingLightNominalDarkBlankBoardIntegrity(self):
+        self.setDark(2)
+        self.setBlank(3)
+        self.setBoard([3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,2,3,3,3,3,2,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3])
+        self.setIntegrity('integrity=f01977c17f801c43eeb13fb9f74a49bd0c761db3cdffe01510f47ddd23ab465a')
         expectedResult = {'status': 'ok'}
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)

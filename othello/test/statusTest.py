@@ -96,5 +96,15 @@ class CreateTest(TestCase):
         expectedResult = {'status': 'ok'}
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
+        
+    def test031_HighBoundDarkNominalLightBlankBoardIntegrity(self):
+        self.setLight(5)
+        self.setDark(9)
+        self.setBlank(3)
+        self.setBoard([3,3,3,3,3,3,3,3,3,3,3,3,3,3,5,9,3,3,3,3,9,5,3,3,3,3,3,3,3,3,3,3,3,3,3,3])
+        self.setIntegrity('34932b7f4bbafed18cf99e367e29407e6aae8b49b2ced711f31e429e7efc2a12')
+        expectedResult = {'status': 'ok'}
+        result = status._status(self.inputDictionary)
+        self.assertEqual(result, expectedResult)
 
         

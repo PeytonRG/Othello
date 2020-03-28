@@ -19,9 +19,7 @@ def _status(inputDictionary):
      
     integrity = inputDictionary["integrity"] #parmValidation._validateIntegrity(inputDictionary, errorList)
            
-    if light == dark or light == blank or dark == blank:
-        errorList.append("The values of light, dark, " 
-            + "and blank must be unique.")
+    parmValidation._validateUnqiueLightDarkBlankValues(light, dark, blank, errorList)
         
     if len(errorList) > 0:
         return {"status": "error: " + errorList[0]}

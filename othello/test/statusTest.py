@@ -199,4 +199,14 @@ class CreateTest(TestCase):
         expectedResult = {'status': 'ok'}
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
+        
+    def test070_StatusIsOk(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(0)
+        self.setBoard([0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+        self.setIntegrity('6c3ec0129f5e128f48e2541bd6663a52a825c35f99b9a69d9593f2fc44b0bb4b')
+        expectedResult = {'status': 'ok'}
+        result = status._status(self.inputDictionary)
+        self.assertEqual(result, expectedResult)
     

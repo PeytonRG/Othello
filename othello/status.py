@@ -60,6 +60,21 @@ def _getPossibleMoveCount(board, light, dark, blank):
             tokenBelow = rowBelow[relativeIndex]
             twoTokensBelow = twoRowsBelow[relativeIndex]
             
+            if token == light:
+                # immediate left token must be light and the left of that must be blank
+                if tokenLeftOfCurrentToken == dark and board[tokenIndex - 2] == blank:
+                    possibleLightMoves += 1
+                    
+                # same idea but to the right
+                if tokenRightOfCurrentToken == dark and board[tokenIndex + 2] == blank:
+                    possibleLightMoves += 1
+                    
+                if tokenAbove == dark and twoTokensAbove == blank:
+                    possibleLightMoves += 1
+            
+                if tokenBelow == dark and twoTokensBelow == blank:
+                    possibleLightMoves += 1
+                    
             if token == dark:
                 # immediate left token must be light and the left of that must be blank
                 if tokenLeftOfCurrentToken == light and board[tokenIndex - 2] == blank:

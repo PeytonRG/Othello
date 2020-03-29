@@ -241,4 +241,4 @@ class statusTest(TestCase):
         board = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         expectedResult = 4
         result = status._getPossibleMoveCount(board, light, dark, blank)
-        self.assertEqual(result, expectedResult)
+        self.assertEqual(result["dark"], expectedResult)

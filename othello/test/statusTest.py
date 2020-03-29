@@ -226,3 +226,9 @@ class statusTest(TestCase):
         expectedResult = [0,1,1,1,1,0]
         result = status._getRowFromBoard(0, self.inputDictionary["board"])
         self.assertEqual(result, expectedResult)
+        
+    def test210_ShouldReturnRowThreeFromBoard(self):
+        self.setBoard([0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,0,1,1,1,1,0])
+        expectedResult = [1,1,1,2,1,1]
+        result = status._getRowFromBoard(3, self.inputDictionary["board"])
+        self.assertEqual(result, expectedResult)

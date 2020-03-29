@@ -7,7 +7,7 @@
 from unittest import TestCase
 import othello.status as status
 
-class CreateTest(TestCase):
+class statusTest(TestCase):
     
     def setUp(self):
         self.inputDictionary = {}
@@ -219,4 +219,10 @@ class CreateTest(TestCase):
         expectedResult = {'status': 'dark'}
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
-    
+
+# Unit Tests
+    def test210_ShouldReturnFirstRowFromBoard(self):
+        self.setBoard([0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,0,1,1,1,1,0])
+        expectedResult = [0,1,1,1,1,0]
+        result = status._getRowFromBoard(0, self.inputDictionary["board"])
+        self.assertEqual(result, expectedResult)

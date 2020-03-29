@@ -4,6 +4,7 @@
     @author: Peyton Gasink
 '''
 import hashlib
+import math
 from othello import parmValidation
 
 def _status(inputDictionary):
@@ -24,5 +25,13 @@ def _status(inputDictionary):
     if len(errorList) > 0:
         return {"status": "error: " + errorList[0]}
     
+    row = _getRowFromBoard(0, board)
+    row = _getRowFromBoard(3, board)
+    
     result = {'status': 'ok'}
     return result
+
+def _getRowFromBoard(rowNum, board):
+    elementsInRow = int(math.sqrt(len(board)))
+    row = board[(elementsInRow * rowNum):(elementsInRow * rowNum + elementsInRow)]
+    return row

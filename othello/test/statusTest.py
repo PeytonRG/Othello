@@ -243,3 +243,12 @@ class statusTest(TestCase):
         result = status._getPossibleMoveCount(board, light, dark, blank)
         self.assertEqual(result["dark"], expectedResult)
         
+    def test501_ShouldReturnPossibleMoveCountForLightTokens(self):
+        light = 1
+        dark = 2
+        blank = 0
+        board = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        expectedResult = 4
+        result = status._getPossibleMoveCount(board, light, dark, blank)
+        self.assertEqual(result["light"], expectedResult)
+        

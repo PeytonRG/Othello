@@ -73,8 +73,12 @@ def _getPossibleMoveCount(board, light, dark, blank):
             
             if tokenBelow == light and twoTokensBelow == blank:
                 possibleDarkMoves += 1
-
-    return possibleDarkMoves
+    
+    result = {
+        "light": possibleLightMoves,
+        "dark": possibleDarkMoves
+        }
+    return result
 
 def _getRowFromBoard(rowNum, board):
     elementsInRow = int(math.sqrt(len(board)))

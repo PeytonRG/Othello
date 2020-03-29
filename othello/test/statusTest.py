@@ -227,8 +227,17 @@ class statusTest(TestCase):
         result = status._getRowFromBoard(0, self.inputDictionary["board"])
         self.assertEqual(result, expectedResult)
         
-    def test210_ShouldReturnRowThreeFromBoard(self):
+    def test211_ShouldReturnRowThreeFromBoard(self):
         self.setBoard([0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,0,1,1,1,1,0])
         expectedResult = [1,1,1,2,1,1]
         result = status._getRowFromBoard(3, self.inputDictionary["board"])
+        self.assertEqual(result, expectedResult)
+        
+    def test500_ShouldReturnPossibleMoveCountForDarkTokens(self):
+        light = 1
+        dark = 2
+        blank = 0
+        board = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        expectedResult = 4
+        result = status._getPossibleMoveCount(board, light, dark, blank)
         self.assertEqual(result, expectedResult)

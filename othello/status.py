@@ -25,11 +25,11 @@ def _status(inputDictionary):
     if len(errorList) > 0:
         return {"status": "error: " + errorList[0]}
     
-    row = _getRowFromBoard(0, board)
-    row = _getRowFromBoard(3, board)
-    
     result = {'status': 'ok'}
     return result
+
+def _getPossibleMoveCount(board, light, dark, blank):
+    pass
 
 def _getRowFromBoard(rowNum, board):
     elementsInRow = int(math.sqrt(len(board)))

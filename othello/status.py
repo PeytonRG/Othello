@@ -35,7 +35,7 @@ def _getPossibleMoveCount(board, light, dark, blank):
     nextStartTokenIndex = 0
     elementsInRow = int(math.sqrt(length))
     for token in board:
-        if token == dark:
+        if token != blank:
             tokenIndex = board.index(token, nextStartTokenIndex, length - 1)
             nextStartTokenIndex = tokenIndex + 1
             # track the row of this token to compare with the tokens that surround it
@@ -43,15 +43,7 @@ def _getPossibleMoveCount(board, light, dark, blank):
             rowNum = int((tokenIndex - tokenIndex % elementsInRow) / elementsInRow)
             
             tokenLeftOfCurrentToken = board[tokenIndex - 1]
-            tokenRightOfCurrentToken = board[tokenIndex + 1]
-            
-            # immediate left token must be light and the left of that must be blank
-            if tokenLeftOfCurrentToken == light and board[tokenIndex - 2] == blank:
-                possibleDarkMoves += 1
-                
-            # same idea but to the right
-            if tokenRightOfCurrentToken == light and board[tokenIndex + 2] == blank:
-                possibleDarkMoves += 1
+            tokenRightOfCurrentToken = board[tokenIndex + 1]           
                 
             # index of the current token relative to its row
             relativeIndex = tokenIndex - rowNum * elementsInRow
@@ -68,11 +60,20 @@ def _getPossibleMoveCount(board, light, dark, blank):
             tokenBelow = rowBelow[relativeIndex]
             twoTokensBelow = twoRowsBelow[relativeIndex]
             
-            if tokenAbove == light and twoTokensAbove == blank:
-                possibleDarkMoves += 1
+            if token == dark:
+                # immediate left token must be light and the left of that must be blank
+                if tokenLeftOfCurrentToken == light and board[tokenIndex - 2] == blank:
+                    possibleDarkMoves += 1
+                    
+                # same idea but to the right
+                if tokenRightOfCurrentToken == light and board[tokenIndex + 2] == blank:
+                    possibleDarkMoves += 1
+                    
+                if tokenAbove == light and twoTokensAbove == blank:
+                    possibleDarkMoves += 1
             
-            if tokenBelow == light and twoTokensBelow == blank:
-                possibleDarkMoves += 1
+                if tokenBelow == light and twoTokensBelow == blank:
+                    possibleDarkMoves += 1
     
     result = {
         "light": possibleLightMoves,

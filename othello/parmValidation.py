@@ -108,7 +108,7 @@ def _validateBoard(inputDictionary, errorList):
         if len(board) % 2 != 0:
             raise ValueError
         
-    except ValueError:
+    except (KeyError, ValueError):
         errorList.append(errorMessage)
     return board
         

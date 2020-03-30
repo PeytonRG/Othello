@@ -96,8 +96,10 @@ def _validateSize(inputDictionary, errorList):
 def _validateBoard(inputDictionary, errorList):
     errorMessage = "The board be a square with even length and width, in the range [6, 16]."
     try:
+        # This will throw a KeyError if there is no board key
         board = inputDictionary["board"]
         
+        # This will throw a TypeError if board is None
         size = math.sqrt(len(board))
         
         # This board is not a square
@@ -109,7 +111,7 @@ def _validateBoard(inputDictionary, errorList):
             raise ValueError
         return board
     
-    except (KeyError, ValueError):
+    except (KeyError, TypeError, ValueError):
         errorList.append(errorMessage)
     
         

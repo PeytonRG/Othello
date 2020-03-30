@@ -234,7 +234,14 @@ class statusTest(TestCase):
         self.setLight(1)
         self.setDark(2)
         self.setBlank(0)
-        self.setBoard([1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0, 1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,2,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1])
+        self.setBoard([1,1,1,1,1,1,1,1,
+                       1,1,1,1,1,1,1,1,
+                       1,1,1,1,1,1,1,1,
+                       1,1,1,1,1,1,1,0, 
+                       1,1,1,1,1,1,0,0,
+                       1,1,1,1,1,1,0,2,
+                       1,1,1,1,1,1,1,0,
+                       1,1,1,1,1,1,1,1])
         self.setIntegrity('8a1c0659575e8cdd01b2e4ff3f431c845e7e7960279bb7abfaa5465e4a755354')
         expectedResult = {'status': 'end'}
         result = status._status(self.inputDictionary)
@@ -285,6 +292,23 @@ class statusTest(TestCase):
         expectedResult = {
             "light": 0,
             "dark": 2
+            }
+        result = status._getPossibleMoveCount(board, light, dark, blank)
+        self.assertEqual(result, expectedResult)
+        
+    def test221_OnlyLightShouldMove(self):
+        light = 1
+        dark = 2
+        blank = 3
+        board = [2,2,2,2,2,2,
+                 2,2,2,2,2,2,
+                 2,2,1,2,2,2,
+                 2,2,2,2,2,2,
+                 2,2,2,2,2,2,
+                 2,2,2,2,2,3]
+        expectedResult = {
+            "light": 1,
+            "dark": 0
             }
         result = status._getPossibleMoveCount(board, light, dark, blank)
         self.assertEqual(result, expectedResult)

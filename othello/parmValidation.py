@@ -98,13 +98,18 @@ def _validateBoard(inputDictionary, errorList):
     try:
         board = inputDictionary["board"]
         
-        if not(isinstance(math.sqrt(len(board)), int)):
+        size = math.sqrt(len(board))
+        
+        # This board is not a square
+        if size != math.floor(size):
             raise ValueError
         
 #         if len(board) % 2 != 0:
 #             raise ValueError
-        
     except ValueError:
         errorList.append(errorMessage)
+    return board
+        
+    
     
     

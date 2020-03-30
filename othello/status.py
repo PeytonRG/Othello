@@ -57,8 +57,21 @@ def _getPossibleMoveCount(board, light, dark, blank):
             # get the tokens above and below the current token
             tokenAbove = rowAbove[relativeIndex]
             twoTokensAbove = twoRowsAbove[relativeIndex]
+            
+            tokenAboveLeft = rowAbove[relativeIndex - 1]
+            twoTokensAboveLeft = twoRowsAbove[relativeIndex - 2]
+            
+            tokenAboveRight = rowAbove[relativeIndex + 1]
+            twoTokensAboveRight = twoRowsAbove[relativeIndex + 2]
+            
             tokenBelow = rowBelow[relativeIndex]
             twoTokensBelow = twoRowsBelow[relativeIndex]
+            
+            tokenBelowLeft = rowBelow[relativeIndex - 1]
+            twoTokensBelowLeft = twoRowsBelow[relativeIndex - 2]
+            
+            tokenBelowRight = rowBelow[relativeIndex + 1]
+            twoTokensBelowRight = twoRowsBelow[relativeIndex + 2]
             
             if token == light:
                 # immediate left token must be light and the left of that must be blank
@@ -74,6 +87,8 @@ def _getPossibleMoveCount(board, light, dark, blank):
             
                 if tokenBelow == dark and twoTokensBelow == blank:
                     possibleLightMoves += 1
+                    
+                # WHILE LOOP TO RECURSIVELY SEARCH THE DIRECTIONS FOR POSSIBLE MOVES?
                     
             if token == dark:
                 # immediate left token must be light and the left of that must be blank

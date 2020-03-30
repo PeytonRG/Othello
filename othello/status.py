@@ -31,85 +31,128 @@ def _status(inputDictionary):
 def _getPossibleMoveCount(board, light, dark, blank):
     possibleLightMoves = 0
     possibleDarkMoves = 0
-    length = len(board)
-    nextStartTokenIndex = 0
-    elementsInRow = int(math.sqrt(length))
-    for token in board:
-        if token != blank:
-            tokenIndex = board.index(token, nextStartTokenIndex, length - 1)
-            nextStartTokenIndex = tokenIndex + 1
-            # track the row of this token to compare with the tokens that surround it
-            # by dividing the first element in the row by the number of elements in a row
-            rowNum = int((tokenIndex - tokenIndex % elementsInRow) / elementsInRow)
-            
-            tokenLeftOfCurrentToken = board[tokenIndex - 1]
-            tokenRightOfCurrentToken = board[tokenIndex + 1]           
-                
-            # index of the current token relative to its row
-            relativeIndex = tokenIndex - rowNum * elementsInRow
-            
-            # get the two rows above and below the current row
-            rowAbove = _getRowFromBoard(rowNum - 1, board)
-            twoRowsAbove = _getRowFromBoard(rowNum - 2, board)
-            rowBelow = _getRowFromBoard(rowNum + 1, board)
-            twoRowsBelow = _getRowFromBoard(rowNum + 2, board)
-            
-            # get the tokens above and below the current token
-            tokenAbove = rowAbove[relativeIndex]
-            twoTokensAbove = twoRowsAbove[relativeIndex]
-            
-            tokenAboveLeft = rowAbove[relativeIndex - 1]
-            twoTokensAboveLeft = twoRowsAbove[relativeIndex - 2]
-            
-            tokenAboveRight = rowAbove[relativeIndex + 1]
-            twoTokensAboveRight = twoRowsAbove[relativeIndex + 2]
-            
-            tokenBelow = rowBelow[relativeIndex]
-            twoTokensBelow = twoRowsBelow[relativeIndex]
-            
-            tokenBelowLeft = rowBelow[relativeIndex - 1]
-            twoTokensBelowLeft = twoRowsBelow[relativeIndex - 2]
-            
-            tokenBelowRight = rowBelow[relativeIndex + 1]
-            twoTokensBelowRight = twoRowsBelow[relativeIndex + 2]
-            
-            if token == light:
-                # immediate left token must be light and the left of that must be blank
-                if tokenLeftOfCurrentToken == dark and board[tokenIndex - 2] == blank:
-                    possibleLightMoves += 1
-                    
-                # same idea but to the right
-                if tokenRightOfCurrentToken == dark and board[tokenIndex + 2] == blank:
-                    possibleLightMoves += 1
-                    
-                if tokenAbove == dark and twoTokensAbove == blank:
-                    possibleLightMoves += 1
-            
-                if tokenBelow == dark and twoTokensBelow == blank:
-                    possibleLightMoves += 1
-                    
-                # WHILE LOOP TO RECURSIVELY SEARCH THE DIRECTIONS FOR POSSIBLE MOVES?
-                    
-            if token == dark:
-                # immediate left token must be light and the left of that must be blank
-                if tokenLeftOfCurrentToken == light and board[tokenIndex - 2] == blank:
-                    possibleDarkMoves += 1
-                    
-                # same idea but to the right
-                if tokenRightOfCurrentToken == light and board[tokenIndex + 2] == blank:
-                    possibleDarkMoves += 1
-                    
-                if tokenAbove == light and twoTokensAbove == blank:
-                    possibleDarkMoves += 1
-            
-                if tokenBelow == light and twoTokensBelow == blank:
-                    possibleDarkMoves += 1
     
+    for position, token in enumerate(board):
+        if token != blank: 
+            if token == dark:
+                possibleDarkMoves += _calculateMoveCount(dark, position, board, light, dark, blank)
+            elif token == light:
+                possibleLightMoves += _calculateMoveCount(light, position, board, light, dark, blank)
     result = {
         "light": possibleLightMoves,
         "dark": possibleDarkMoves
         }
     return result
+
+def _calculateMoveCount(lightOrDark, position, board, light, dark, blank):
+    length = len(board)
+    elementsInRow = int(math.sqrt(length))
+    possibleMoves = 0
+    oppositeToken = dark if lightOrDark == light else light
+    
+    # get the row of this token to compare with the tokens that surround it
+    # by dividing the first position in the row by the number of elements in a row
+    firstIndexInRow = position - position % elementsInRow
+    lastIndexInRow = firstIndexInRow + elementsInRow - 1
+    rowNum = int(firstIndexInRow / elementsInRow)
+    try:
+        indexOfLeftAdjacent = position - 1
+        while (firstIndexInRow <= indexOfLeftAdjacent 
+               and indexOfLeftAdjacent > 0):
+            tokenLeft = board[indexOfLeftAdjacent]
+            if tokenLeft == oppositeToken and board[indexOfLeftAdjacent - 1] == blank:
+                possibleMoves += 1
+                break
+            else:
+                indexOfLeftAdjacent -= 1
+    except IndexError:
+        pass
+    
+    try:
+        indexOfRightAdjacent = position + 1
+        while (lastIndexInRow >= indexOfRightAdjacent 
+               and indexOfRightAdjacent < len(board) - 1):
+            tokenRight = board[indexOfRightAdjacent]
+            if tokenRight == oppositeToken and board[indexOfRightAdjacent + 1] == blank:
+                possibleMoves += 1
+                break
+            else:
+                indexOfRightAdjacent += 1
+    except IndexError:
+        pass
+    
+    try:
+        indexOfAboveAdjacent = position - elementsInRow
+        while indexOfAboveAdjacent > 0:
+            tokenAbove = board[indexOfAboveAdjacent]
+            if tokenAbove == oppositeToken and board[indexOfAboveAdjacent - elementsInRow] == blank:
+                possibleMoves += 1
+                break
+            else:
+                indexOfAboveAdjacent -= elementsInRow
+    except IndexError:
+        pass
+    
+    try:
+        indexOfBelowAdjacent = position + elementsInRow
+        while indexOfBelowAdjacent < len(board) - 1:
+            tokenBelow = board[indexOfBelowAdjacent]
+            if tokenBelow == oppositeToken and board[indexOfBelowAdjacent + elementsInRow] == blank:
+                possibleMoves += 1
+                break
+            else:
+                indexOfBelowAdjacent += elementsInRow
+    except IndexError:
+        pass
+    
+    try:
+        indexOfAboveLeftAdjacent = position - elementsInRow - 1
+        while indexOfAboveLeftAdjacent > 0:
+            tokenAboveLeft = board[indexOfAboveLeftAdjacent]
+            if tokenAboveLeft == oppositeToken and board[indexOfAboveLeftAdjacent - elementsInRow - 1] == blank:
+                possibleMoves += 1
+                break
+            else:
+                indexOfAboveLeftAdjacent -= (elementsInRow + 1)
+    except IndexError:
+        pass
+    
+    try:
+        indexOfAboveRightAdjacent = position - elementsInRow + 1
+        while indexOfAboveRightAdjacent > 0:
+            tokenAboveRight = board[indexOfAboveRightAdjacent]
+            if tokenAboveRight == oppositeToken and board[indexOfAboveRightAdjacent - elementsInRow + 1] == blank:
+                possibleMoves += 1
+                break
+            else:
+                indexOfAboveRightAdjacent -= (elementsInRow - 1)
+    except IndexError:
+        pass
+    
+    try:
+        indexOfBelowLeftAdjacent = position + elementsInRow - 1
+        while indexOfBelowLeftAdjacent < len(board) - 1:
+            tokenBelowLeft = board[indexOfBelowLeftAdjacent]
+            if tokenBelowLeft == oppositeToken and board[indexOfBelowLeftAdjacent + elementsInRow - 1] == blank:
+                possibleMoves += 1
+                break
+            else:
+                indexOfBelowLeftAdjacent += (elementsInRow + 1)
+    except IndexError:
+        pass
+    
+    try:
+        indexOfBelowRightAdjacent = position + elementsInRow + 1
+        while indexOfBelowRightAdjacent < len(board) - 1:
+            tokenBelowRight = board[indexOfBelowRightAdjacent]
+            if tokenBelowRight == oppositeToken and board[indexOfBelowRightAdjacent + elementsInRow + 1] == blank:
+                possibleMoves += 1
+                break
+            else:
+                indexOfBelowRightAdjacent += (elementsInRow - 1)
+    except IndexError:
+        pass
+    return possibleMoves
 
 def _getRowFromBoard(rowNum, board):
     elementsInRow = int(math.sqrt(len(board)))

@@ -104,8 +104,10 @@ def _validateBoard(inputDictionary, errorList):
         if size != math.floor(size):
             raise ValueError
         
-#         if len(board) % 2 != 0:
-#             raise ValueError
+        # This board is a square, but with odd length and width
+        if len(board) % 2 != 0:
+            raise ValueError
+        
     except ValueError:
         errorList.append(errorMessage)
     return board

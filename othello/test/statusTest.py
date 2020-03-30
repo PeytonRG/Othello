@@ -357,6 +357,17 @@ class statusTest(TestCase):
                           + 'be an integer in the range [0, 9].'}
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
+        
+    def test922_NonIntegerBlankNominalLightDarkBoardIntegrity(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(1E5)
+        self.setBoard([1E5,1E5,1E5,1E5,1E5,1E5,1E5,1E5,1E5,1E5,1E5,1E5,1E5,1E5,1,2,1E5,1E5,1E5,1E5,2,1,1E5,1E5,1E5,1E5,1E5,1E5,1E5,1E5,1E5,1E5,1E5,1E5,1E5,1E5])
+        self.setIntegrity('fe62b7f99befb02e21c50cc755a68ef80fb59d56224b02a1f2888e0830454773')
+        expectedResult = {'status': 'error: The value for blank spaces must '
+                          + 'be an integer in the range [0, 9].'}
+        result = status._status(self.inputDictionary)
+        self.assertEqual(result, expectedResult)
 
 # Unit Tests
 

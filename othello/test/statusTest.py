@@ -386,8 +386,7 @@ class statusTest(TestCase):
         self.setBlank(3)
         self.setBoard([3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,2,3,3,3,3,2,1,3,3,3,3,3,3,3,3,3,3,3,3,3])
         self.setIntegrity('9d43a04297202bccc81a13b6857179269c0fe33e5227c6569286d54d82493ba6')
-        expectedResult = {'status': 'error: The value for blank spaces must '
-                          + 'be an integer in the range [0, 9].'}
+        expectedResult = {'status': 'error: The board be a square with even length and width, in the range [6, 16].'}
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
 

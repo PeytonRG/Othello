@@ -1,3 +1,5 @@
+import math
+
 def _validateLight(inputDictionary, errorList):
     errorMessage = ("The value for light tokens must be an integer in the " + 
                     "range [0, 9].")
@@ -90,3 +92,19 @@ def _validateSize(inputDictionary, errorList):
         size = 8
         errorList.append(errorMessage)
     return size
+
+def _validateBoard(inputDictionary, errorList):
+    errorMessage = "The board be a square with even length and width, in the range [6, 16]."
+    try:
+        board = inputDictionary["board"]
+        
+        if not(isinstance(math.sqrt(len(board)), int)):
+            raise ValueError
+        
+#         if len(board) % 2 != 0:
+#             raise ValueError
+        
+    except ValueError:
+        errorList.append(errorMessage)
+    
+    

@@ -408,6 +408,16 @@ class statusTest(TestCase):
         expectedResult = {'status': 'error: The board be a square with even length and width, in the range [6, 16].'}
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
+        
+    def test935_NullBoardNominalLightDarkBlankIntegrity(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(3)
+        self.setBoard()
+        self.setIntegrity('1e3f8bb2d56c5b4483c9f3dccf7bc16d339534a98020e9a28383aaa219f3e64d')
+        expectedResult = {'status': 'error: The board be a square with even length and width, in the range [6, 16].'}
+        result = status._status(self.inputDictionary)
+        self.assertEqual(result, expectedResult)
 
 # Unit Tests
 

@@ -219,6 +219,16 @@ class statusTest(TestCase):
         expectedResult = {'status': 'dark'}
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
+        
+    def test072_StatusIsLight(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(3)
+        self.setBoard([2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3])
+        self.setIntegrity('7c53df9ff782bbbff544d876f4d69a1d87d5864295c0e4a6bf29e6a7ee5a96fc')
+        expectedResult = {'status': 'light'}
+        result = status._status(self.inputDictionary)
+        self.assertEqual(result, expectedResult)
 
 # Unit Tests
 

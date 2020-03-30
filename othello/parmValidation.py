@@ -107,10 +107,11 @@ def _validateBoard(inputDictionary, errorList):
         # This board is a square, but with odd length and width
         if len(board) % 2 != 0:
             raise ValueError
-        
+        return board
+    
     except (KeyError, ValueError):
         errorList.append(errorMessage)
-    return board
+    
         
     
     

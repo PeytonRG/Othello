@@ -280,6 +280,17 @@ class statusTest(TestCase):
                           + 'be an integer in the range [0, 9].'}
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
+        
+    def test903_NullLightNominalDarkBlankBoardIntegrity(self):
+        self.setLight()
+        self.setDark(2)
+        self.setBlank(1)
+        self.setBoard([1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,2,1,1,1,1,2,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1])
+        self.setIntegrity('1cc0050055aa122edbb536cc63dfe515e6a55132a42a6c8fa41349ab6e572c6a')
+        expectedResult = {'status': 'error: The value for light tokens must '
+                          + 'be an integer in the range [0, 9].'}
+        result = status._status(self.inputDictionary)
+        self.assertEqual(result, expectedResult)
 
 # Unit Tests
 

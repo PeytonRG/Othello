@@ -313,3 +313,22 @@ class statusTest(TestCase):
         result = status._getPossibleMoveCount(board, light, dark, blank)
         self.assertEqual(result, expectedResult)
         
+    def test223_NeitherCanMove(self):
+        light = 1
+        dark = 2
+        blank = 0
+        board = [1,1,1,1,1,1,1,1, 
+                 1,1,1,1,1,1,1,1,
+                 1,1,1,1,1,1,1,1,
+                 1,1,1,1,1,1,1,0, 
+                 1,1,1,1,1,1,0,0,
+                 1,1,1,1,1,1,0,2,
+                 1,1,1,1,1,1,1,0,
+                 1,1,1,1,1,1,1,1]
+        expectedResult = {
+            "light": 0,
+            "dark": 0
+            }
+        result = status._getPossibleMoveCount(board, light, dark, blank)
+        self.assertEqual(result, expectedResult)
+        

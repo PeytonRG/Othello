@@ -320,7 +320,7 @@ class statusTest(TestCase):
         self.setBlank(1)
         self.setBoard([1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1.2,1,1,1,1,1.2,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1])
         self.setIntegrity('e62a2ec6eb082391a6a5664b4f4dbd8130e43d6589267b19b831423bfcde4a9d')
-        expectedResult = {'status': 'error: The value for light tokens must '
+        expectedResult = {'status': 'error: The value for dark tokens must '
                           + 'be an integer in the range [0, 9].'}
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)

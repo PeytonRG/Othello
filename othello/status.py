@@ -1,6 +1,6 @@
 '''
     Created on March 28, 2020
-    Last Modified March 28, 2020
+    Last Modified March 29, 2020
     @author: Peyton Gasink
 '''
 import hashlib
@@ -54,7 +54,7 @@ def _calculateMoveCount(lightOrDark, position, board, light, dark, blank):
     # by dividing the first position in the row by the number of elements in a row
     firstIndexInRow = position - position % elementsInRow
     lastIndexInRow = firstIndexInRow + elementsInRow - 1
-    rowNum = int(firstIndexInRow / elementsInRow)
+
     try:
         indexOfLeftAdjacent = position - 1
         while (firstIndexInRow <= indexOfLeftAdjacent 
@@ -154,7 +154,7 @@ def _calculateMoveCount(lightOrDark, position, board, light, dark, blank):
         pass
     return possibleMoves
 
-def _getRowFromBoard(rowNum, board):
-    elementsInRow = int(math.sqrt(len(board)))
-    row = board[(elementsInRow * rowNum):(elementsInRow * rowNum + elementsInRow)]
-    return row
+# def _getRowFromBoard(rowNum, board):
+#     elementsInRow = int(math.sqrt(len(board)))
+#     row = board[(elementsInRow * rowNum):(elementsInRow * rowNum + elementsInRow)]
+#     return row

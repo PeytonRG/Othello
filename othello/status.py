@@ -25,7 +25,17 @@ def _status(inputDictionary):
     if len(errorList) > 0:
         return {"status": "error: " + errorList[0]}
     
-    result = {'status': 'ok'}
+    possibleMoves = _getPossibleMoveCount(board, light, dark, blank)
+    
+    if possibleMoves["light"] > 0 and possibleMoves["dark"] > 0:
+        result = {'status': 'ok'}
+    elif possibleMoves["light"] > 0:
+        result = {'status': 'light'}
+    elif possibleMoves["dark"] > 0:
+        result = {'status': 'dark'}
+    else:
+        result = {'status': 'end'}
+    
     return result
 
 def _getPossibleMoveCount(board, light, dark, blank):

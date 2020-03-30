@@ -296,7 +296,7 @@ class statusTest(TestCase):
         result = status._getPossibleMoveCount(board, light, dark, blank)
         self.assertEqual(result, expectedResult)
         
-    def test221_OnlyLightShouldMove(self):
+    def test222_OnlyLightShouldMove(self):
         light = 1
         dark = 2
         blank = 3

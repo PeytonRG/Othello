@@ -247,6 +247,18 @@ class statusTest(TestCase):
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
 
+# Sad Path Tests
+    def test900_AboveBoundLightNominalDarkBlankBoardIntegrity(self):
+        self.setLight(10)
+        self.setDark(2)
+        self.setBlank(1)
+        self.setBoard([1,1,1,1,1,1,1,1,1,1,1,1,1,1,10,2,1,1,1,1,2,10,1,1,1,1,1,1,1,1,1,1,1,1,1,1])
+        self.setIntegrity('b71bf3bee30fb8c3caa49752bcf9656870cfbd3bec4e4353e1e491054bf11c2f')
+        expectedResult = {'status': 'error: The value for light tokens must '
+                          + 'be an integer in the range [0, 9].'}
+        result = status._status(self.inputDictionary)
+        self.assertEqual(result, expectedResult)
+
 # Unit Tests
 
 # Not sure will need the function these were testing after all. Commenting out for the time being.

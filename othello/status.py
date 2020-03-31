@@ -205,7 +205,3 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
         pass
     return possibleMoves
 
-# def _getRowFromBoard(rowNum, board):
-#     elementsInRow = int(math.sqrt(len(board)))
-#     row = board[(elementsInRow * rowNum):(elementsInRow * rowNum + elementsInRow)]
-#     return row

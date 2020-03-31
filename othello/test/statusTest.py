@@ -535,19 +535,6 @@ class statusTest(TestCase):
         self.assertEqual(result, expectedResult)
 
 # Unit Tests
-
-# Not sure will need the function these were testing after all. Commenting out for the time being.
-#     def test210_ShouldReturnFirstRowFromBoard(self):
-#         self.setBoard([0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,0,1,1,1,1,0])
-#         expectedResult = [0,1,1,1,1,0]
-#         result = status._getRowFromBoard(0, self.inputDictionary["board"])
-#         self.assertEqual(result, expectedResult)
-#         
-#     def test211_ShouldReturnRowThreeFromBoard(self):
-#         self.setBoard([0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,0,1,1,1,1,0])
-#         expectedResult = [1,1,1,2,1,1]
-#         result = status._getRowFromBoard(3, self.inputDictionary["board"])
-#         self.assertEqual(result, expectedResult)
         
     def test220_ShouldReturnPossibleMoveCounts(self):
         light = 1

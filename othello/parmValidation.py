@@ -1,5 +1,6 @@
 import hashlib
 import math
+from _ctypes import ArgumentError
 
 def _validateLight(inputDictionary, errorList):
     errorMessage = ("The value for light tokens must be an integer in the " + 
@@ -119,7 +120,8 @@ def _validateIntegrity(inputDictionary, light, dark, blank, board, errorList):
     # The validation for the other properties in inputDictionary has run by this point,
     # so only proceed if there were no errors.
     if len(errorList) == 0:
-        errorMessage = "The integrity string must be 64-character sha-256 hash hexdigest."
+        standardErrorMessage = "The integrity string must be 64-character sha-256 hash hexdigest."
+        nonMatchingHashErrorMessage = "The provided board and integrity hash do not match."
         try:
             # This will raise a KeyError if there is no integrity key
             integrity = inputDictionary["integrity"]
@@ -129,26 +131,35 @@ def _validateIntegrity(inputDictionary, light, dark, blank, board, errorList):
             # is None.
             integrityAsDecimal = int(integrity, 16)
             
-    #         generatedIntegrity = _generateHash(board, light, dark, blank)
+            generatedIntegrityLight = _generateHash(board, light, dark, blank, light)
+            generatedIntegrityDark = _generateHash(board, light, dark, blank, dark)
+            generatedIntegrityEnd = _generateHash(board, light, dark, blank)
             
             if len(integrity) != 64:
                 raise ValueError
             
+#             if integrity != generatedIntegrityLight and integrity != generatedIntegrityDark:
+#                 raise ArgumentError
+            
             return integrity
             
         except (KeyError, TypeError, ValueError):
-            errorList.append(errorMessage)
+            errorList.append(standardErrorMessage)
+        except ArgumentError:
+            errorList.append(nonMatchingHashErrorMessage)
     
 def _generateHash(board, light, dark, blank, nextTurn = None):
     boardString = "".join(str(space) for space in board)
     
-    if nextTurn == None:
-        nextTurn = dark
-        
-    integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/{nextTurn}")
-    hash = hashlib.sha256(integrity).hexdigest()
+#     if nextTurn == None:
+#         nextTurn = dark
+    if nextTurn != None:
+        integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/{nextTurn}")
+    else:
+        integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/")
+    integrityHash = hashlib.sha256(integrity).hexdigest()
     
-    return hash       
+    return integrityHash       
     
     
     

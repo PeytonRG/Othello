@@ -1,6 +1,6 @@
 '''
     Created on March 11, 2020
-    Last Modified March 12, 2020
+    Last Modified March 30, 2020
     @author: Peyton Gasink
 '''
 import hashlib
@@ -24,7 +24,7 @@ def _create(inputDictionary):
     
     board = _generateBoard(light, dark, blank, lengthWidth)
             
-    integrity = parmValidation._generateHash(board, light, dark, blank)
+    integrity = parmValidation._generateHash(board, light, dark, blank, dark)
     
     result = {
         "board": board,

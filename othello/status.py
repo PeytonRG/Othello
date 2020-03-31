@@ -17,10 +17,10 @@ def _status(inputDictionary):
     blank = parmValidation._validateBlank(inputDictionary, errorList)
         
     board = parmValidation._validateBoard(inputDictionary, errorList)
+    
+    parmValidation._validateUnqiueLightDarkBlankValues(light, dark, blank, errorList)
      
     integrity = parmValidation._validateIntegrity(inputDictionary, light, dark, blank, board, errorList)
-           
-    parmValidation._validateUnqiueLightDarkBlankValues(light, dark, blank, errorList)
         
     if len(errorList) > 0:
         return {"status": "error: " + errorList[0]}

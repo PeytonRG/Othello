@@ -66,11 +66,12 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
     lastIndexInRow = firstIndexInRow + elementsInRow - 1
 
     # Direction: Horizontal Left
-    try:
-        indexOfLeftAdjacent = position - 1
-        while (firstIndexInRow <= indexOfLeftAdjacent 
-               and indexOfLeftAdjacent > 0):
-            tokenLeft = board[indexOfLeftAdjacent]
+    indexOfLeftAdjacent = position - 1
+    while (firstIndexInRow <= indexOfLeftAdjacent 
+           and indexOfLeftAdjacent > 0):
+        tokenLeft = board[indexOfLeftAdjacent]
+        lookahead = indexOfLeftAdjacent - 1
+        if lookahead >= firstIndexInRow:
             if tokenLeft == oppositeToken and board[indexOfLeftAdjacent - 1] == blank:
                 possibleMoves += 1
                 break
@@ -78,24 +79,25 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
                 break
             else:
                 indexOfLeftAdjacent -= 1
-    except IndexError:
-        pass
+        else:
+            break
     
     # Direction: Horizontal Right
-    try:
-        indexOfRightAdjacent = position + 1
-        while (lastIndexInRow >= indexOfRightAdjacent 
-               and indexOfRightAdjacent < len(board) - 1):
-            tokenRight = board[indexOfRightAdjacent]
-            if tokenRight == oppositeToken and board[indexOfRightAdjacent + 1] == blank:
+    indexOfRightAdjacent = position + 1
+    while (lastIndexInRow >= indexOfRightAdjacent 
+           and indexOfRightAdjacent < len(board) - 1):
+        tokenRight = board[indexOfRightAdjacent]
+        lookahead = indexOfRightAdjacent + 1
+        if lookahead <= lastIndexInRow:
+            if tokenRight == oppositeToken and board[lookahead] == blank:
                 possibleMoves += 1
                 break
             elif tokenRight == blank or tokenRight == currentToken:
                 break
             else:
                 indexOfRightAdjacent += 1
-    except IndexError:
-        pass
+        else:
+            break
     
     # Direction: Vertical Up
     indexOfAboveAdjacent = position - elementsInRow

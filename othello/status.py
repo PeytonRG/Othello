@@ -146,7 +146,9 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
         lookahead = indexOfAboveLeftAdjacent - elementsInRow - 1
         # Ensure the next space to check is also on the board
         if indexOfAboveAdjacent >= 0 and lookahead >= 0:
+            
             firstIndexInPrevRow = indexOfAboveAdjacent - indexOfAboveAdjacent % elementsInRow
+            
             # In addition to the usual checks for token colors, ensure no wrapping around
             # to the other side of the board
             if (indexOfAboveLeftAdjacent >= firstIndexInPrevRow 
@@ -170,8 +172,12 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
         lookahead = indexOfAboveRightAdjacent - elementsInRow + 1
         # Ensure the next space to check is also on the board
         if indexOfAboveRightAdjacent <= len(board) - 1 and lookahead <= len(board) - 1:
+            
             firstIndexInPrevRow = indexOfAboveAdjacent - indexOfAboveAdjacent % elementsInRow
             lastIndexInPrevRow = firstIndexInPrevRow + elementsInRow - 1
+            
+            # In addition to the usual checks for token colors, ensure no wrapping around
+            # to the other side of the board
             if (indexOfAboveRightAdjacent <= lastIndexInPrevRow 
                 and tokenAboveRight == oppositeToken 
                 and board[indexOfAboveRightAdjacent - (elementsInRow - 1)] == blank):
@@ -182,43 +188,62 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
                 break
             else:
                 indexOfAboveRightAdjacent -= (elementsInRow - 1)
+        else:
+            break
     
     # Direction: Diagonal Down, Left
-    try:
-        indexOfBelowAdjacent = position + elementsInRow
-        indexOfBelowLeftAdjacent = indexOfBelowAdjacent + 1
-        while indexOfBelowLeftAdjacent < len(board) - 1:
-            tokenBelowLeft = board[indexOfBelowLeftAdjacent]
-            if tokenBelowLeft == oppositeToken and board[indexOfBelowLeftAdjacent + elementsInRow - 1] == blank:
-                firstIndexInNextRow = indexOfBelowAdjacent - indexOfBelowAdjacent % elementsInRow
-                if indexOfBelowLeftAdjacent >= firstIndexInNextRow:
-                    possibleMoves += 1
+    indexOfBelowLeftAdjacent = position + elementsInRow - 1
+    # Only enter the loop if there is a row below the current row
+    while indexOfBelowLeftAdjacent < len(board) - 1:
+        tokenBelowLeft = board[indexOfBelowLeftAdjacent]
+        indexOfBelowAdjacent = indexOfBelowLeftAdjacent + 1
+        lookahead = indexOfBelowLeftAdjacent + elementsInRow - 1
+        # Ensure the next space to check is also on the board
+        if indexOfBelowLeftAdjacent <= len(board) - 1 and lookahead <= len(board) - 1:
+            
+            firstIndexInNextRow = indexOfBelowAdjacent - indexOfBelowAdjacent % elementsInRow
+            
+            # In addition to the usual checks for token colors, ensure no wrapping around
+            # to the other side of the board
+            if (indexOfBelowLeftAdjacent >= firstIndexInNextRow 
+                and tokenBelowLeft == oppositeToken 
+                and board[indexOfBelowLeftAdjacent + elementsInRow - 1] == blank):
+                
+                possibleMoves += 1
                 break
             elif tokenBelowLeft == blank or tokenBelowLeft == currentToken:
                 break
             else:
-                indexOfBelowAdjacent += elementsInRow
                 indexOfBelowLeftAdjacent += (elementsInRow + 1)
-    except IndexError:
-        pass
+        else:
+            break
     
     # Direction: Diagonal Down, Right
-    try:
-        indexOfBelowAdjacent = position + elementsInRow
-        indexOfBelowRightAdjacent = position + elementsInRow + 1
-        while indexOfBelowRightAdjacent < len(board) - 1:
-            tokenBelowRight = board[indexOfBelowRightAdjacent]
-            if tokenBelowRight == oppositeToken and board[indexOfBelowRightAdjacent + elementsInRow + 1] == blank:
-                firstIndexInNextRow = indexOfBelowAdjacent - indexOfBelowAdjacent % elementsInRow
-                lastIndexInNextRow = firstIndexInNextRow + elementsInRow - 1
-                if indexOfBelowRightAdjacent <= lastIndexInNextRow:
-                    possibleMoves += 1
+    indexOfBelowRightAdjacent = position + elementsInRow + 1
+    # Only enter the loop if there is a row below the current row
+    while indexOfBelowRightAdjacent < len(board) - 1:
+        tokenBelowRight = board[indexOfBelowRightAdjacent]
+        indexOfBelowAdjacent = indexOfBelowRightAdjacent - 1
+        lookahead = indexOfBelowRightAdjacent + elementsInRow + 1
+        # Ensure the next space to check is also on the board
+        if indexOfBelowRightAdjacent <= len(board) - 1 and lookahead <= len(board) - 1:
+            firstIndexInNextRow = indexOfBelowAdjacent - indexOfBelowAdjacent % elementsInRow
+            lastIndexInNextRow = firstIndexInNextRow + elementsInRow - 1
+            
+            # In addition to the usual checks for token colors, ensure no wrapping around
+            # to the other side of the board
+            if (indexOfBelowRightAdjacent <= lastIndexInNextRow 
+                and tokenBelowRight == oppositeToken 
+                and board[indexOfBelowRightAdjacent + elementsInRow + 1] == blank):
+                
+                possibleMoves += 1
                 break
             elif tokenBelowRight == blank or tokenBelowRight == currentToken:
                 break
             else:
                 indexOfBelowRightAdjacent += (elementsInRow - 1)
-    except IndexError:
-        pass
+        else:
+            break
+
     return possibleMoves
 

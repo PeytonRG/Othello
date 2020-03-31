@@ -490,7 +490,7 @@ class statusTest(TestCase):
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
-    def test951_NominalLightDarkBlankEqualsDarkNominalBoardIntegrity(self):
+    def test952_NominalLightDarkBlankEqualsDarkNominalBoardIntegrity(self):
         self.setLight(1)
         self.setDark(2)
         self.setBlank(2)
@@ -498,6 +498,27 @@ class statusTest(TestCase):
         self.setIntegrity('4edfe0aad5d491d98b8103e4f8f899cd3cef690f6ec3602a16e5a0e0301e8bd6')
         expectedResult = {'status': 'error: The values of light, dark, '
             + 'and blank must be unique.'}
+        result = status._status(self.inputDictionary)
+        self.assertEqual(result, expectedResult)
+        
+    # Holding off on this test because the values provided are flawed.
+#     def test953_BoardWithNonLightDarkBlankValuesNominalLightDarkBlankIntegrity(self):
+#         self.setLight(1)
+#         self.setDark(2)
+#         self.setBlank(3)
+#         self.setBoard([3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,2,3,3,3,3,2,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3])
+#         self.setIntegrity('b42a70b9f5b1064d1a1c594f466ec6cb1c2383694a8fe9f660d7fb07bcdce637')
+#         expectedResult = {'status': 'error: The board must contain only light, dark, and blank values'}
+#         result = status._status(self.inputDictionary)
+#         self.assertEqual(result, expectedResult)
+        
+    def test954_InvalidIntegrityNominalLightDarkBlankBoard(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(3)
+        self.setBoard([3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,2,3,3,3,3,2,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3])
+        self.setIntegrity('4d5aeb4a45b57eecf69dcc304664fcf7a6f7c74c86ef9ede14da46ab2d9df242')
+        expectedResult = {'status': 'error: The provided board and integrity hash do not match.'}
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
 

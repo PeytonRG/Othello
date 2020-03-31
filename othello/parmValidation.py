@@ -1,3 +1,4 @@
+import hashlib
 import math
 
 def _validateLight(inputDictionary, errorList):
@@ -114,20 +115,38 @@ def _validateBoard(inputDictionary, errorList):
     except (KeyError, TypeError, ValueError):
         errorList.append(errorMessage)
         
-def _validateIntegrity(inputDictionary, errorList):
-    errorMessage = "The integrity string must be 64-character sha-256 hash hexdigest."
-    try:
-        integrity = inputDictionary["integrity"]
-        
-        if len(integrity) != 64:
-            raise ValueError
-        
-        return integrity
-        
-    except (ValueError):
-        errorList.append(errorMessage)
+def _validateIntegrity(inputDictionary, light, dark, blank, board, errorList):
+    # The validation for the other properties in inputDictionary has run by this point,
+    # so only proceed if there were no errors.
+    if len(errorList) == 0:
+        errorMessage = "The integrity string must be 64-character sha-256 hash hexdigest."
+        try:
+            integrity = inputDictionary["integrity"]
+            
+            # Convert to a decimal number. This will raise a ValueError if the integrity
+            # is not a valid hexdigest.
+            integrityAsDecimal = int(integrity, 16)
+            
+    #         generatedIntegrity = _generateHash(board, light, dark, blank)
+            
+            if len(integrity) != 64:
+                raise ValueError
+            
+            return integrity
+            
+        except (ValueError):
+            errorList.append(errorMessage)
     
+def _generateHash(board, light, dark, blank, nextTurn = None):
+    boardString = "".join(str(space) for space in board)
+    
+    if nextTurn == None:
+        nextTurn = dark
         
+    integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/{nextTurn}")
+    hash = hashlib.sha256(integrity).hexdigest()
+    
+    return hash       
     
     
     

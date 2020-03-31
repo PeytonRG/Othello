@@ -24,7 +24,7 @@ def _create(inputDictionary):
     
     board = _generateBoard(light, dark, blank, lengthWidth)
             
-    integrity = _generateHash(board, light, dark, blank)
+    integrity = parmValidation._generateHash(board, light, dark, blank)
     
     result = {
         "board": board,
@@ -33,7 +33,7 @@ def _create(inputDictionary):
             "dark": dark, 
             "blank": blank
             },
-        "integrity": hashlib.sha256(integrity).hexdigest(),
+        "integrity": integrity,
         "status": "ok"
         }
     return result
@@ -61,11 +61,6 @@ def _generateBoard(light, dark, blank, lengthWidth):
         else:
             board.append(blank)
     return board
-
-def _generateHash(board, light, dark, blank):
-    boardString = "".join(str(space) for space in board)
-    integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/{dark}")
-    return integrity
 
 
 

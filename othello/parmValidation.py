@@ -121,6 +121,7 @@ def _validateIntegrity(inputDictionary, light, dark, blank, board, errorList):
     if len(errorList) == 0:
         errorMessage = "The integrity string must be 64-character sha-256 hash hexdigest."
         try:
+            # This will raise a KeyError if there is no integrity key
             integrity = inputDictionary["integrity"]
             
             # Convert to a decimal number. This will raise a ValueError if the integrity
@@ -134,7 +135,7 @@ def _validateIntegrity(inputDictionary, light, dark, blank, board, errorList):
             
             return integrity
             
-        except (ValueError):
+        except (KeyError, ValueError):
             errorList.append(errorMessage)
     
 def _generateHash(board, light, dark, blank, nextTurn = None):

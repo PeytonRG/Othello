@@ -448,6 +448,15 @@ class statusTest(TestCase):
         expectedResult = {'status': 'error: The integrity string must be 64-character sha-256 hash hexdigest.'}
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
+        
+    def test943_MissingIntegrityNominalLightDarkBlankBoard(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(3)
+        self.setBoard([3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,2,3,3,3,3,2,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3])
+        expectedResult = {'status': 'error: The integrity string must be 64-character sha-256 hash hexdigest.'}
+        result = status._status(self.inputDictionary)
+        self.assertEqual(result, expectedResult)
 
 # Unit Tests
 

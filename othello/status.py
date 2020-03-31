@@ -67,6 +67,7 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
 
     # Direction: Horizontal Left
     indexOfLeftAdjacent = position - 1
+    # Only enter the loop if it remains on the current row and on the board
     while (firstIndexInRow <= indexOfLeftAdjacent 
            and indexOfLeftAdjacent > 0):
         tokenLeft = board[indexOfLeftAdjacent]
@@ -84,6 +85,7 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
     
     # Direction: Horizontal Right
     indexOfRightAdjacent = position + 1
+    # Only enter the loop if it remains on the current row and on the board
     while (lastIndexInRow >= indexOfRightAdjacent 
            and indexOfRightAdjacent < len(board) - 1):
         tokenRight = board[indexOfRightAdjacent]
@@ -136,12 +138,13 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
             break
     
     # Direction: Diagonal Up, Left
-    try:
-        indexOfAboveAdjacent = position - elementsInRow
-        indexOfAboveLeftAdjacent = indexOfAboveAdjacent - 1
-        while indexOfAboveLeftAdjacent > 0:
-            tokenAboveLeft = board[indexOfAboveLeftAdjacent]
-            if tokenAboveLeft == oppositeToken and board[indexOfAboveLeftAdjacent - (elementsInRow + 1)] == blank:
+    indexOfAboveLeftAdjacent = position - elementsInRow - 1
+    while indexOfAboveLeftAdjacent > 0:
+        tokenAboveLeft = board[indexOfAboveLeftAdjacent]
+        indexOfAboveAdjacent = indexOfAboveLeftAdjacent + 1
+        lookahead = indexOfAboveLeftAdjacent - elementsInRow - 1
+        if indexOfAboveAdjacent >= 0 and lookahead >= 0:
+            if tokenAboveLeft == oppositeToken and board[lookahead] == blank:
                 firstIndexInPrevRow = indexOfAboveAdjacent - indexOfAboveAdjacent % elementsInRow
                 if indexOfAboveLeftAdjacent >= firstIndexInPrevRow:
                     possibleMoves += 1
@@ -149,10 +152,9 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
             elif tokenAboveLeft == blank or tokenAboveLeft == currentToken:
                 break
             else:
-                indexOfAboveAdjacent -= elementsInRow
                 indexOfAboveLeftAdjacent -= (elementsInRow + 1)
-    except IndexError:
-        pass
+        else: 
+            break
     
     # Direction: Diagonal Up, Right
     try:

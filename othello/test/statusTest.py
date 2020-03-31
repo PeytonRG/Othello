@@ -500,17 +500,6 @@ class statusTest(TestCase):
             + 'and blank must be unique.'}
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
-        
-    # Holding off on this test because the values provided are flawed.
-#     def test953_BoardWithNonLightDarkBlankValuesNominalLightDarkBlankIntegrity(self):
-#         self.setLight(1)
-#         self.setDark(2)
-#         self.setBlank(3)
-#         self.setBoard([3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,2,3,3,3,3,2,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3])
-#         self.setIntegrity('b42a70b9f5b1064d1a1c594f466ec6cb1c2383694a8fe9f660d7fb07bcdce637')
-#         expectedResult = {'status': 'error: The board must contain only light, dark, and blank values'}
-#         result = status._status(self.inputDictionary)
-#         self.assertEqual(result, expectedResult)
 
 # Holding off on this as well because I think some other tests are failing due to incorrect provided inputs.
 # If this test passes, test 061 and 073 will fail.

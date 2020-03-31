@@ -1,6 +1,6 @@
 '''
     Created on March 28, 2020
-    Last Modified March 28, 2020
+    Last Modified March 31, 2020
     @author: Peyton Gasink
 '''
 
@@ -501,8 +501,6 @@ class statusTest(TestCase):
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
 
-# Holding off on this as well because I think some other tests are failing due to incorrect provided inputs.
-# If this test passes, test 061 and 073 will fail.
     def test954_InvalidIntegrityNominalLightDarkBlankBoard(self):
         self.setLight(1)
         self.setDark(2)

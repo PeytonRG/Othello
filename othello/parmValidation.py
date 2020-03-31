@@ -1,3 +1,9 @@
+'''
+    Created on March 28, 2020
+    Last Modified March 31, 2020
+    @author: Peyton Gasink
+'''
+
 import hashlib
 import math
 from _ctypes import ArgumentError

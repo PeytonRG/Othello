@@ -144,11 +144,10 @@ def _validateIntegrity(inputDictionary, light, dark, blank, board, errorList):
             # Convert to a decimal number. This will raise a ValueError if the integrity
             # is not a valid hexdigest. Addtionally, it will raise a TypeError if integrity
             # is None.
-            integrityAsDecimal = int(integrity, 16)
+            int(integrity, 16)
             
             generatedIntegrityLight = _generateHash(board, light, dark, blank, light)
             generatedIntegrityDark = _generateHash(board, light, dark, blank, dark)
-            generatedIntegrityEnd = _generateHash(board, light, dark, blank)
             
             if len(integrity) != 64:
                 raise ValueError
@@ -163,15 +162,9 @@ def _validateIntegrity(inputDictionary, light, dark, blank, board, errorList):
         except ArgumentError:
             errorList.append(nonMatchingHashErrorMessage)
     
-def _generateHash(board, light, dark, blank, nextTurn = None):
-    boardString = "".join(str(space) for space in board)
-    
-#     if nextTurn == None:
-#         nextTurn = dark
-    if nextTurn != None:
-        integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/{nextTurn}")
-    else:
-        integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/")
+def _generateHash(board, light, dark, blank, nextPlayer):
+    boardString = "".join(str(space) for space in board)  
+    integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/{nextPlayer}")
     integrityHash = hashlib.sha256(integrity).hexdigest()
     
     return integrityHash       

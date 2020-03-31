@@ -19,8 +19,9 @@ def _status(inputDictionary):
     parmValidation._validateUnqiueLightDarkBlankValues(light, dark, blank, errorList)
         
     board = parmValidation._validateBoard(inputDictionary, light, dark, blank, errorList)
-     
-    integrity = parmValidation._validateIntegrity(inputDictionary, light, dark, blank, board, errorList)
+    
+    # Integrity is not saved to a variable because it is only used for validation 
+    parmValidation._validateIntegrity(inputDictionary, light, dark, blank, board, errorList)
         
     if len(errorList) > 0:
         return {"status": "error: " + errorList[0]}

@@ -113,6 +113,19 @@ def _validateBoard(inputDictionary, errorList):
     
     except (KeyError, TypeError, ValueError):
         errorList.append(errorMessage)
+        
+def _validateIntegrity(inputDictionary, errorList):
+    errorMessage = "The integrity string must be 64-character sha-256 hash hexdigest."
+    try:
+        integrity = inputDictionary["integrity"]
+        
+        if len(integrity) != 64:
+            raise ValueError
+        
+        return integrity
+        
+    except (ValueError):
+        errorList.append(errorMessage)
     
         
     

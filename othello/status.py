@@ -18,7 +18,7 @@ def _status(inputDictionary):
         
     board = parmValidation._validateBoard(inputDictionary, errorList)
      
-    integrity = inputDictionary["integrity"] #parmValidation._validateIntegrity(inputDictionary, errorList)
+    integrity = parmValidation._validateIntegrity(inputDictionary, errorList)
            
     parmValidation._validateUnqiueLightDarkBlankValues(light, dark, blank, errorList)
         

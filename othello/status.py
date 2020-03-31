@@ -66,30 +66,32 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
     firstIndexInRow = position - position % elementsInRow
 
     # Direction: Horizontal Left
-    possibleMoves += _scanHorizontal(position, elementsInRow, currentToken, oppositeToken,
+    possibleMoves += _scanOutwardFromToken(position, elementsInRow, currentToken, oppositeToken,
                                      blank, board, _loopConditionLeft, _getOffsetLeft, _enforceRowBoundingLeft)
     
     # Direction: Horizontal Right
-    possibleMoves += _scanHorizontal(position, elementsInRow, currentToken, oppositeToken, 
+    possibleMoves += _scanOutwardFromToken(position, elementsInRow, currentToken, oppositeToken, 
                                      blank, board, _loopConditionRight, _getOffsetRight, _enforceRowBoundingRight)
     
     # Direction: Vertical Up
-    indexOfAboveAdjacent = position - elementsInRow
-    # Only enter the loop if there is a row above the current row
-    while indexOfAboveAdjacent > 0:
-        tokenAbove = board[indexOfAboveAdjacent]
-        lookahead = indexOfAboveAdjacent - elementsInRow
-        # Ensure the next space to check is also on the board
-        if lookahead >= 0:
-            if tokenAbove == oppositeToken and board[lookahead] == blank:
-                possibleMoves += 1
-                break
-            elif tokenAbove == blank or tokenAbove == currentToken:
-                break
-            else:
-                indexOfAboveAdjacent -= elementsInRow
-        else:
-            break
+    possibleMoves += _scanOutwardFromToken(position, elementsInRow, currentToken, oppositeToken, 
+                                     blank, board, _loopConditionAbove, _getOffsetAbove, _enforceRowBoundingAbove)
+#     indexOfAboveAdjacent = position - elementsInRow
+#     # Only enter the loop if there is a row above the current row
+#     while indexOfAboveAdjacent > 0:
+#         tokenAbove = board[indexOfAboveAdjacent]
+#         lookahead = indexOfAboveAdjacent - elementsInRow
+#         # Ensure the next space to check is also on the board
+#         if lookahead >= 0:
+#             if tokenAbove == oppositeToken and board[lookahead] == blank:
+#                 possibleMoves += 1
+#                 break
+#             elif tokenAbove == blank or tokenAbove == currentToken:
+#                 break
+#             else:
+#                 indexOfAboveAdjacent -= elementsInRow
+#         else:
+#             break
         
     # Direction: Vertical Down
     indexOfBelowAdjacent = position + elementsInRow
@@ -219,30 +221,34 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
 
     return possibleMoves
 
-def _scanHorizontal(position, elementsInRow, currentToken, oppositeToken, blank, board, loopCondition, offsetFunc, rowBoundingFunc):
+def _scanOutwardFromToken(position, elementsInRow, currentToken, oppositeToken, blank, board, loopCondition, offsetFunc, rowBoundingFunc):
     possibleMoves = 0
     
     # get the row of this token to compare with the tokens that surround it
     # by dividing the first position in the row by the number of elements in a row
     firstIndexInRow = position - position % elementsInRow
     
-    indexOfHorizontalNeighbor = offsetFunc(position)
+    indexOfNeighbor = offsetFunc(elementsInRow, position)
     # Only enter the loop if it remains on the current row and on the board
-    while (loopCondition(board, elementsInRow, firstIndexInRow, indexOfHorizontalNeighbor)):
-        neighborValue = board[indexOfHorizontalNeighbor]
-        lookahead = offsetFunc(indexOfHorizontalNeighbor)
+    while (loopCondition(board, elementsInRow, firstIndexInRow, indexOfNeighbor)):
+        neighborValue = board[indexOfNeighbor]
+        lookahead = offsetFunc(elementsInRow, indexOfNeighbor)
         if rowBoundingFunc(elementsInRow, firstIndexInRow, lookahead):
-            if neighborValue == oppositeToken and board[offsetFunc(indexOfHorizontalNeighbor)] == blank:
+            if neighborValue == oppositeToken and board[offsetFunc(elementsInRow, indexOfNeighbor)] == blank:
                 possibleMoves += 1
                 break
             elif neighborValue == blank or neighborValue == currentToken:
                 break
             else:
-                indexOfHorizontalNeighbor = offsetFunc(indexOfHorizontalNeighbor)
+                indexOfNeighbor = offsetFunc(elementsInRow, indexOfNeighbor)
         else:
             break
         
     return possibleMoves
+
+
+def _loopConditionAbove(board, elementsInRow, firstIndexInRow, indexOfAboveNeighbor):
+    return indexOfAboveNeighbor > 0
 
 def _loopConditionLeft(board, elementsInRow, firstIndexInRow, indexOfHorizontalNeighbor):
     return (firstIndexInRow <= indexOfHorizontalNeighbor 
@@ -252,6 +258,9 @@ def _loopConditionRight(board, elementsInRow, firstIndexInRow, indexOfHorizontal
     lastIndexInRow = firstIndexInRow + elementsInRow - 1
     return (lastIndexInRow >= indexOfHorizontalNeighbor 
            and indexOfHorizontalNeighbor < len(board) - 1)
+    
+def _enforceRowBoundingAbove(elementsInRow, firstIndexInRow, lookahead):
+    return lookahead >= 0
            
 def _enforceRowBoundingLeft(elementsInRow, firstIndexInRow, lookahead):
     return lookahead >= firstIndexInRow
@@ -260,8 +269,11 @@ def _enforceRowBoundingRight(elementsInRow, firstIndexInRow, lookahead):
     lastIndexInRow = firstIndexInRow + elementsInRow - 1
     return lookahead <= lastIndexInRow
 
-def _getOffsetLeft(position):
+def _getOffsetAbove(elementsInRow, position):
+    return position - elementsInRow
+
+def _getOffsetLeft(elementsInRow, position):
     return position - 1
 
-def _getOffsetRight(position):
+def _getOffsetRight(elementsInRow, position):
     return position + 1

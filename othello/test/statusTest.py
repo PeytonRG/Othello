@@ -479,12 +479,23 @@ class statusTest(TestCase):
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
         
-    def test950_NominalLightDarkBlankEqualsLightNominalBoardIntegrity(self):
+    def test951_NominalLightDarkBlankEqualsLightNominalBoardIntegrity(self):
         self.setLight(1)
         self.setDark(2)
         self.setBlank(1)
         self.setBoard([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1])
         self.setIntegrity('c725061d80e342070c231d2b987c476f92b8f3d9e5826c2223cff281562e8e2c')
+        expectedResult = {'status': 'error: The values of light, dark, '
+            + 'and blank must be unique.'}
+        result = status._status(self.inputDictionary)
+        self.assertEqual(result, expectedResult)
+        
+    def test951_NominalLightDarkBlankEqualsDarkNominalBoardIntegrity(self):
+        self.setLight(1)
+        self.setDark(2)
+        self.setBlank(2)
+        self.setBoard([2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2])
+        self.setIntegrity('4edfe0aad5d491d98b8103e4f8f899cd3cef690f6ec3602a16e5a0e0301e8bd6')
         expectedResult = {'status': 'error: The values of light, dark, '
             + 'and blank must be unique.'}
         result = status._status(self.inputDictionary)

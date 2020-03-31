@@ -95,26 +95,41 @@ def _validateSize(inputDictionary, errorList):
         errorList.append(errorMessage)
     return size
 
-def _validateBoard(inputDictionary, errorList):
-    errorMessage = "The board be a square with even length and width, in the range [6, 16]."
-    try:
-        # This will throw a KeyError if there is no board key
-        board = inputDictionary["board"]
+def _validateBoard(inputDictionary, light, dark, blank, errorList):
+    # The validation for the other properties in inputDictionary has run by this point,
+    # so only proceed if there were no errors.
+    if len(errorList) == 0:
+        standardErrorMessage = "The board be a square with even length and width, in the range [6, 16]."
+        invalidTokensInBoardMessage = "The board must contain only light, dark, and blank tokens."
+        try:
+            # This will throw a KeyError if there is no board key
+            board = inputDictionary["board"]
+            
+            # This will throw a TypeError if board is None
+            size = math.sqrt(len(board))
+            
+            # This board is not a square
+            if size != math.floor(size):
+                raise ValueError
+            
+            # This board is a square, but with odd length and width
+            if len(board) % 2 != 0:
+                raise ValueError
+            
+            lightCount = board.count(light)
+            darkCount = board.count(dark)
+            blankCount = board.count(blank)
+            
+            # There are values other than light, dark, and blank in this board
+            if lightCount + darkCount + blankCount != len(board):
+                raise ArgumentError
+            
+            return board
         
-        # This will throw a TypeError if board is None
-        size = math.sqrt(len(board))
-        
-        # This board is not a square
-        if size != math.floor(size):
-            raise ValueError
-        
-        # This board is a square, but with odd length and width
-        if len(board) % 2 != 0:
-            raise ValueError
-        return board
-    
-    except (KeyError, TypeError, ValueError):
-        errorList.append(errorMessage)
+        except (KeyError, TypeError, ValueError):
+            errorList.append(standardErrorMessage)
+        except ArgumentError:
+            errorList.append(invalidTokensInBoardMessage)
         
 def _validateIntegrity(inputDictionary, light, dark, blank, board, errorList):
     # The validation for the other properties in inputDictionary has run by this point,

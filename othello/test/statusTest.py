@@ -530,7 +530,7 @@ class statusTest(TestCase):
         self.setBlank(3)
         self.setBoard([0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
         self.setIntegrity('c9fd7c0049f79f33e45998064cd1fca01600dd5cdc55cb3bf33169cd07c1905a')
-        expectedResult = {'status': 'error: The board must contain only light, dark, and blank values'}
+        expectedResult = {'status': 'error: The board must contain only light, dark, and blank tokens.'}
         result = status._status(self.inputDictionary)
         self.assertEqual(result, expectedResult)
 

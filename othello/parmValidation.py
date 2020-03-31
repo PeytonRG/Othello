@@ -153,8 +153,8 @@ def _validateIntegrity(inputDictionary, light, dark, blank, board, errorList):
             if len(integrity) != 64:
                 raise ValueError
             
-#             if integrity != generatedIntegrityLight and integrity != generatedIntegrityDark:
-#                 raise ArgumentError
+            if integrity != generatedIntegrityLight and integrity != generatedIntegrityDark:
+                raise ArgumentError
             
             return integrity
             

@@ -98,34 +98,40 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
         pass
     
     # Direction: Vertical Up
-    try:
-        indexOfAboveAdjacent = position - elementsInRow
-        while indexOfAboveAdjacent > 0:
-            tokenAbove = board[indexOfAboveAdjacent]
-            if tokenAbove == oppositeToken and board[indexOfAboveAdjacent - elementsInRow] == blank:
+    indexOfAboveAdjacent = position - elementsInRow
+    # Only enter the loop if there is a row above the current row
+    while indexOfAboveAdjacent > 0:
+        tokenAbove = board[indexOfAboveAdjacent]
+        lookahead = indexOfAboveAdjacent - elementsInRow
+        # Ensure the next space to check is also on the board
+        if lookahead >= 0:
+            if tokenAbove == oppositeToken and board[lookahead] == blank:
                 possibleMoves += 1
                 break
             elif tokenAbove == blank or tokenAbove == currentToken:
                 break
             else:
                 indexOfAboveAdjacent -= elementsInRow
-    except IndexError:
-        pass
-    
+        else:
+            break
+        
     # Direction: Vertical Down
-    try:
-        indexOfBelowAdjacent = position + elementsInRow
-        while indexOfBelowAdjacent < len(board) - 1:
-            tokenBelow = board[indexOfBelowAdjacent]
-            if tokenBelow == oppositeToken and board[indexOfBelowAdjacent + elementsInRow] == blank:
+    indexOfBelowAdjacent = position + elementsInRow
+    # Only enter the loop if there is a row below the current row
+    while indexOfBelowAdjacent < len(board) - 1:
+        tokenBelow = board[indexOfBelowAdjacent]
+        lookahead = indexOfBelowAdjacent + elementsInRow
+        # Ensure the next space to check is also on the board
+        if lookahead <= len(board) - 1:
+            if tokenBelow == oppositeToken and board[lookahead] == blank:
                 possibleMoves += 1
                 break
             elif tokenBelow == blank or tokenBelow == currentToken:
                 break
             else:
                 indexOfBelowAdjacent += elementsInRow
-    except IndexError:
-        pass
+        else:
+            break
     
     # Direction: Diagonal Up, Left
     try:

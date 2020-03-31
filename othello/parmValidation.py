@@ -125,7 +125,8 @@ def _validateIntegrity(inputDictionary, light, dark, blank, board, errorList):
             integrity = inputDictionary["integrity"]
             
             # Convert to a decimal number. This will raise a ValueError if the integrity
-            # is not a valid hexdigest.
+            # is not a valid hexdigest. Addtionally, it will raise a TypeError if integrity
+            # is None.
             integrityAsDecimal = int(integrity, 16)
             
     #         generatedIntegrity = _generateHash(board, light, dark, blank)
@@ -135,7 +136,7 @@ def _validateIntegrity(inputDictionary, light, dark, blank, board, errorList):
             
             return integrity
             
-        except (KeyError, ValueError):
+        except (KeyError, TypeError, ValueError):
             errorList.append(errorMessage)
     
 def _generateHash(board, light, dark, blank, nextTurn = None):

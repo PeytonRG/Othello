@@ -16,17 +16,20 @@ def _status(inputDictionary):
     
     blank = parmValidation._validateBlank(inputDictionary, errorList)
     
-    parmValidation._validateUnqiueLightDarkBlankValues(light, dark, blank, errorList)
+    parmValidation._validateUnqiueLightDarkBlankValues(light, dark, 
+                                                       blank, errorList)
         
-    board = parmValidation._validateBoard(inputDictionary, light, dark, blank, errorList)
+    board = parmValidation._validateBoard(inputDictionary, light, dark, 
+                                          blank, errorList)
     
     # Integrity is not saved to a variable because it is only used for validation 
-    parmValidation._validateIntegrity(inputDictionary, light, dark, blank, board, errorList)
+    parmValidation._validateIntegrity(inputDictionary, light, dark, 
+                                      blank, board, errorList)
         
     if len(errorList) > 0:
         return {"status": "error: " + errorList[0]}
     
-    possibleMoves = _getPossibleMoveCount(board, light, dark, blank)
+    possibleMoves = _getPossibleMoveCounts(board, light, dark, blank)
     
     if possibleMoves["light"] > 0 and possibleMoves["dark"] > 0:
         result = {'status': 'ok'}
@@ -39,20 +42,24 @@ def _status(inputDictionary):
     
     return result
 
-def _getPossibleMoveCount(board, light, dark, blank):
+
+def _getPossibleMoveCounts(board, light, dark, blank):
     possibleLightMoves = 0
     possibleDarkMoves = 0
     
     for position, token in enumerate(board):
         if token != blank: 
             if token == dark:
-                possibleDarkMoves += _calculateMoveCount(token, position, board, light, dark, blank)
+                possibleDarkMoves += _calculateMoveCount(token, position, 
+                                        board, light, dark, blank)
             elif token == light:
-                possibleLightMoves += _calculateMoveCount(token, position, board, light, dark, blank)
+                possibleLightMoves += _calculateMoveCount(token, position, 
+                                        board, light, dark, blank)
     result = {
         "light": possibleLightMoves,
         "dark": possibleDarkMoves
         }
+    
     return result
 
 def _calculateMoveCount(currentToken, position, board, light, dark, blank):
@@ -68,8 +75,8 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
         "rowBounding": _enforceRowBoundingLeft
     }
     
-    possibleMoves += _scanInOneDimension(position, elementsInRow, currentToken, oppositeToken,
-                                     blank, board, directionFunctions)
+    possibleMoves += _scanInOneDimension(position, elementsInRow, currentToken, 
+                        oppositeToken,blank, board, directionFunctions)
     
     # Direction: Horizontal Right
     directionFunctions = {
@@ -78,8 +85,8 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
         "rowBounding": _enforceRowBoundingRight
     }
     
-    possibleMoves += _scanInOneDimension(position, elementsInRow, currentToken, oppositeToken,
-                                     blank, board, directionFunctions)
+    possibleMoves += _scanInOneDimension(position, elementsInRow, currentToken, 
+                        oppositeToken,blank, board, directionFunctions)
     
     # Direction: Vertical Up
     directionFunctions = {
@@ -88,8 +95,8 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
         "rowBounding": _enforceRowBoundingAbove
     }
     
-    possibleMoves += _scanInOneDimension(position, elementsInRow, currentToken, oppositeToken,
-                                     blank, board, directionFunctions)
+    possibleMoves += _scanInOneDimension(position, elementsInRow, currentToken, 
+                        oppositeToken,blank, board, directionFunctions)
         
     # Direction: Vertical Down
     directionFunctions = {
@@ -98,8 +105,8 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
         "rowBounding": _enforceRowBoundingBelow
     }
     
-    possibleMoves += _scanInOneDimension(position, elementsInRow, currentToken, oppositeToken,
-                                     blank, board, directionFunctions)
+    possibleMoves += _scanInOneDimension(position, elementsInRow, currentToken, 
+                        oppositeToken,blank, board, directionFunctions)
     
     # Direction: Diagonal Up, Left
     directionFunctions = {
@@ -110,8 +117,8 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
         "verticalNeighbor": _getOffsetRight
     }
     
-    possibleMoves += _scanInTwoDimensions(position, elementsInRow, currentToken, oppositeToken,
-                                     blank, board, directionFunctions)
+    possibleMoves += _scanInOneDimension(position, elementsInRow, currentToken, 
+                        oppositeToken,blank, board, directionFunctions)
     
     # Direction: Diagonal Up, Right
     directionFunctions = {
@@ -122,8 +129,8 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
         "verticalNeighbor": _getOffsetLeft
     }    
     
-    possibleMoves += _scanInTwoDimensions(position, elementsInRow, currentToken, oppositeToken,
-                                     blank, board, directionFunctions)
+    possibleMoves += _scanInTwoDimensions(position, elementsInRow, currentToken, 
+                        oppositeToken, blank, board, directionFunctions)
     
     # Direction: Diagonal Down, Left
     directionFunctions = {
@@ -134,8 +141,8 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
         "verticalNeighbor": _getOffsetRight
     }    
     
-    possibleMoves += _scanInTwoDimensions(position, elementsInRow, currentToken, oppositeToken,
-                                     blank, board, directionFunctions)
+    possibleMoves += _scanInTwoDimensions(position, elementsInRow, currentToken, 
+                        oppositeToken, blank, board, directionFunctions)
     
     # Direction: Diagonal Down, Right
     directionFunctions = {
@@ -146,11 +153,12 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
         "verticalNeighbor": _getOffsetLeft
     }    
     
-    possibleMoves += _scanInTwoDimensions(position, elementsInRow, currentToken, oppositeToken,
-                                     blank, board, directionFunctions)
+    possibleMoves += _scanInTwoDimensions(position, elementsInRow, currentToken, 
+                        oppositeToken, blank, board, directionFunctions)
 
     return possibleMoves
 
+# Scans a line of tokens outward in one direction from the start token.
 def _scanInOneDimension(position, elementsInRow, currentToken, oppositeToken, blank, board, directionFunctions):
     possibleMoves = 0
     
@@ -176,7 +184,8 @@ def _scanInOneDimension(position, elementsInRow, currentToken, oppositeToken, bl
         
     return possibleMoves
 
-def _scanInTwoDimensions(position, elementsInRow, currentToken, oppositeToken, blank, board, directionFunctions):
+def _scanInTwoDimensions(position, elementsInRow, currentToken, oppositeToken, 
+                         blank, board, directionFunctions):
     possibleMoves = 0
     
     # get the row of this token to compare with the tokens that surround it
@@ -185,26 +194,38 @@ def _scanInTwoDimensions(position, elementsInRow, currentToken, oppositeToken, b
     
     indexOfNeighbor = directionFunctions["offset"](elementsInRow, position)
     # Only enter the loop if there is a row above the current row
-    while directionFunctions["loopCondition"](board, elementsInRow, firstIndexInRow, indexOfNeighbor):
+    while directionFunctions["loopCondition"](board, elementsInRow, 
+            firstIndexInRow, indexOfNeighbor):
+        
         neighborValue = board[indexOfNeighbor]
-        indexOfVerticalNeighbor = directionFunctions["verticalNeighbor"](elementsInRow, indexOfNeighbor)
-        lookahead = directionFunctions["offset"](elementsInRow, indexOfNeighbor)
-        # Ensure the next space to check is also on the board
-        if directionFunctions["rowBounding"](board, elementsInRow, indexOfVerticalNeighbor, lookahead):
+        indexOfVerticalNeighbor = directionFunctions["verticalNeighbor"](elementsInRow, 
+                indexOfNeighbor)
             
-            firstIndexInNeighboringRow = indexOfVerticalNeighbor - indexOfVerticalNeighbor % elementsInRow
+        lookahead = directionFunctions["offset"](elementsInRow, indexOfNeighbor)
+        
+        # Ensure the next space to check is also on the board
+        if directionFunctions["rowBounding"](board, elementsInRow, 
+                indexOfVerticalNeighbor, lookahead):
+            
+            firstIndexInNeighboringRow = (indexOfVerticalNeighbor - 
+                indexOfVerticalNeighbor % elementsInRow)
             
             # In addition to the usual checks for token colors, ensure no wrapping around
             # to the other side of the board
-            if (directionFunctions["wrapAround"](board, elementsInRow, firstIndexInNeighboringRow, indexOfNeighbor) 
-                and neighborValue == oppositeToken and board[lookahead] == blank):
+            if (directionFunctions["wrapAround"](board, elementsInRow, 
+                    firstIndexInNeighboringRow, indexOfNeighbor) 
+                and neighborValue == oppositeToken 
+                and board[lookahead] == blank):
                 
                 possibleMoves += 1
                 break
+            
             elif neighborValue == blank or neighborValue == currentToken:
                 break
+            
             else:
                 indexOfNeighbor = directionFunctions["offset"](elementsInRow, indexOfNeighbor)
+                
         else: 
             break
     
@@ -212,17 +233,22 @@ def _scanInTwoDimensions(position, elementsInRow, currentToken, oppositeToken, b
 
 
 # Loop Condition Helper Functions
-def _loopConditionAbove(board, elementsInRow, firstIndexInRow, indexOfNeighbor):
+def _loopConditionAbove(board, elementsInRow, firstIndexInRow, 
+        indexOfNeighbor):
     return indexOfNeighbor > 0
 
-def _loopConditionBelow(board, elementsInRow, firstIndexInRow, indexOfNeighbor):
+def _loopConditionBelow(board, elementsInRow, firstIndexInRow, 
+        indexOfNeighbor):
     return indexOfNeighbor < len(board) - 1
 
-def _loopConditionLeft(board, elementsInRow, firstIndexInRow, indexOfHorizontalNeighbor):
+def _loopConditionLeft(board, elementsInRow, firstIndexInRow, 
+        indexOfHorizontalNeighbor):
     return (firstIndexInRow <= indexOfHorizontalNeighbor 
            and indexOfHorizontalNeighbor > 0)
     
-def _loopConditionRight(board, elementsInRow, firstIndexInRow, indexOfHorizontalNeighbor):
+def _loopConditionRight(board, elementsInRow, firstIndexInRow, 
+        indexOfHorizontalNeighbor):
+    
     lastIndexInRow = firstIndexInRow + elementsInRow - 1
     return (lastIndexInRow >= indexOfHorizontalNeighbor 
            and indexOfHorizontalNeighbor < len(board) - 1)
@@ -232,14 +258,17 @@ def _loopConditionRight(board, elementsInRow, firstIndexInRow, indexOfHorizontal
 def _enforceRowBoundingAbove(board, elementsInRow, firstIndexInRow, lookahead):
     return lookahead >= 0
 
-def _enforceRowBoundingAboveDiagonals(board, elementsInRow, indexOfVerticalNeighbor, lookahead):
+def _enforceRowBoundingAboveDiagonals(board, elementsInRow, 
+        indexOfVerticalNeighbor, lookahead):
     return indexOfVerticalNeighbor >= 0 and lookahead >= 0
 
 def _enforceRowBoundingBelow(board, elementsInRow, firstIndexInRow, lookahead):
     return lookahead <= len(board) - 1
 
-def _enforceRowBoundingBelowDiagonals(board, elementsInRow, indexOfVerticalNeighbor, lookahead):
-    return indexOfVerticalNeighbor <= len(board) - 1 and lookahead <= len(board) - 1
+def _enforceRowBoundingBelowDiagonals(board, elementsInRow, 
+        indexOfVerticalNeighbor, lookahead):
+    return (indexOfVerticalNeighbor <= len(board) - 1 
+            and lookahead <= len(board) - 1)
            
 def _enforceRowBoundingLeft(board, elementsInRow, firstIndexInRow, lookahead):
     return lookahead >= firstIndexInRow

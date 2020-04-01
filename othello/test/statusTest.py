@@ -537,7 +537,7 @@ class statusTest(TestCase):
             "light": 4,
             "dark": 4
             }
-        result = status._getPossibleMoveCount(board, light, dark, blank)
+        result = status._getPossibleMoveCounts(board, light, dark, blank)
         self.assertEqual(result, expectedResult)
         
     def test221_OnlyDarkShouldMove(self):
@@ -554,7 +554,7 @@ class statusTest(TestCase):
             "light": 0,
             "dark": 2
             }
-        result = status._getPossibleMoveCount(board, light, dark, blank)
+        result = status._getPossibleMoveCounts(board, light, dark, blank)
         self.assertEqual(result, expectedResult)
         
     def test222_OnlyLightShouldMove(self):
@@ -571,7 +571,7 @@ class statusTest(TestCase):
             "light": 1,
             "dark": 0
             }
-        result = status._getPossibleMoveCount(board, light, dark, blank)
+        result = status._getPossibleMoveCounts(board, light, dark, blank)
         self.assertEqual(result, expectedResult)
         
     def test223_NeitherCanMove(self):
@@ -590,6 +590,6 @@ class statusTest(TestCase):
             "light": 0,
             "dark": 0
             }
-        result = status._getPossibleMoveCount(board, light, dark, blank)
+        result = status._getPossibleMoveCounts(board, light, dark, blank)
         self.assertEqual(result, expectedResult)
         

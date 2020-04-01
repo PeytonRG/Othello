@@ -106,7 +106,7 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
         "offset": _getOffsetAboveLeft,
         "loopCondition": _loopConditionAbove,
         "rowBounding": _enforceRowBoundingAboveDiagonals,
-        "wrapAround": _preventWrapAroundLeft,
+        "wrapAround": _enforceRowBoundingLeft,
         "verticalNeighbor": _getOffsetRight
     }
     
@@ -118,7 +118,7 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
         "offset": _getOffsetAboveRight,
         "loopCondition": _loopConditionAbove,
         "rowBounding": _enforceRowBoundingAboveDiagonals,
-        "wrapAround": _preventWrapAroundRight,
+        "wrapAround": _enforceRowBoundingRight,
         "verticalNeighbor": _getOffsetLeft
     }    
     
@@ -129,8 +129,8 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
     directionFunctions = {
         "offset": _getOffsetBelowLeft,
         "loopCondition": _loopConditionBelow,
-        "rowBounding": _enforceRowBoundingBelowLeft,
-        "wrapAround": _preventWrapAroundLeft,
+        "rowBounding": _enforceRowBoundingBelowDiagonals,
+        "wrapAround": _enforceRowBoundingLeft,
         "verticalNeighbor": _getOffsetRight
     }    
     
@@ -141,8 +141,8 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
     directionFunctions = {
         "offset": _getOffsetBelowRight,
         "loopCondition": _loopConditionBelow,
-        "rowBounding": _enforceRowBoundingBelowRight,
-        "wrapAround": _preventWrapAroundRight,
+        "rowBounding": _enforceRowBoundingBelowDiagonals,
+        "wrapAround": _enforceRowBoundingRight,
         "verticalNeighbor": _getOffsetLeft
     }    
     
@@ -196,7 +196,7 @@ def _scanInTwoDimensions(position, elementsInRow, currentToken, oppositeToken, b
             
             # In addition to the usual checks for token colors, ensure no wrapping around
             # to the other side of the board
-            if (directionFunctions["wrapAround"](elementsInRow, firstIndexInNeighboringRow, indexOfNeighbor) 
+            if (directionFunctions["wrapAround"](board, elementsInRow, firstIndexInNeighboringRow, indexOfNeighbor) 
                 and neighborValue == oppositeToken and board[lookahead] == blank):
                 
                 possibleMoves += 1
@@ -210,6 +210,8 @@ def _scanInTwoDimensions(position, elementsInRow, currentToken, oppositeToken, b
     
     return possibleMoves
 
+
+# Loop Condition Helper Functions
 def _loopConditionAbove(board, elementsInRow, firstIndexInRow, indexOfNeighbor):
     return indexOfNeighbor > 0
 
@@ -224,7 +226,9 @@ def _loopConditionRight(board, elementsInRow, firstIndexInRow, indexOfHorizontal
     lastIndexInRow = firstIndexInRow + elementsInRow - 1
     return (lastIndexInRow >= indexOfHorizontalNeighbor 
            and indexOfHorizontalNeighbor < len(board) - 1)
-    
+
+
+# Row Bounding Helper Functions
 def _enforceRowBoundingAbove(board, elementsInRow, firstIndexInRow, lookahead):
     return lookahead >= 0
 
@@ -234,10 +238,7 @@ def _enforceRowBoundingAboveDiagonals(board, elementsInRow, indexOfVerticalNeigh
 def _enforceRowBoundingBelow(board, elementsInRow, firstIndexInRow, lookahead):
     return lookahead <= len(board) - 1
 
-def _enforceRowBoundingBelowLeft(board, elementsInRow, indexOfVerticalNeighbor, lookahead):
-    return indexOfVerticalNeighbor <= len(board) - 1 and lookahead <= len(board) - 1
-
-def _enforceRowBoundingBelowRight(board, elementsInRow, indexOfVerticalNeighbor, lookahead):
+def _enforceRowBoundingBelowDiagonals(board, elementsInRow, indexOfVerticalNeighbor, lookahead):
     return indexOfVerticalNeighbor <= len(board) - 1 and lookahead <= len(board) - 1
            
 def _enforceRowBoundingLeft(board, elementsInRow, firstIndexInRow, lookahead):
@@ -247,13 +248,8 @@ def _enforceRowBoundingRight(board, elementsInRow, firstIndexInRow, lookahead):
     lastIndexInRow = firstIndexInRow + elementsInRow - 1
     return lookahead <= lastIndexInRow
 
-def _preventWrapAroundLeft(elementsInRow, firstIndexInNeighboringRow, indexOfNeighbor):
-    return indexOfNeighbor >= firstIndexInNeighboringRow
 
-def _preventWrapAroundRight(elementsInRow, firstIndexInNeighboringRow, indexOfNeighbor):
-    lastIndexInNeighboringRow = firstIndexInNeighboringRow + elementsInRow - 1
-    return indexOfNeighbor <= lastIndexInNeighboringRow
-
+# Offset Locating Helper Functions
 def _getOffsetAbove(elementsInRow, position):
     return position - elementsInRow
 

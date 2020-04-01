@@ -110,7 +110,7 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
         "offset": _getOffsetAboveLeft,
         "loopCondition": _loopConditionAbove,
         "rowBounding": _enforceRowBoundingAboveLeft,
-        "wrapAround": _enforceWrapAroundAboveLeft,
+        "wrapAround": _preventWrapAroundLeft,
         "verticalNeighbor": _getOffsetRight
     }
     
@@ -118,70 +118,53 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
                                      blank, board, directionFunctions)
     
     # Direction: Diagonal Up, Right
-#     directionFunctions = {
-#         "offset": _getOffsetAboveRight,
-#         "loopCondition": _loopConditionAbove,
-#         "rowBounding": _enforceRowBoundingAboveRight,
-#         "wrapAround": _enforceWrapAroundAboveRight,
-#         "verticalNeighbor": _getOffsetAbove
-#     }
+    directionFunctions = {
+        "offset": _getOffsetAboveRight,
+        "loopCondition": _loopConditionAbove,
+        "rowBounding": _enforceRowBoundingAboveRight,
+        "wrapAround": _preventWrapAroundAboveRight,
+        "verticalNeighbor": _getOffsetLeft
+    }    
     
-#     possibleMoves += _scanInTwoDimensions(position, elementsInRow, currentToken, oppositeToken,
-#                                      blank, board, directionFunctions)
-    
-    indexOfAboveRightAdjacent = position - elementsInRow + 1
-    # Only enter the loop if there is a row above the current row
-    while indexOfAboveRightAdjacent > 0:
-        tokenAboveRight = board[indexOfAboveRightAdjacent]
-        indexOfAboveAdjacent = indexOfAboveRightAdjacent + 1
-        lookahead = indexOfAboveRightAdjacent - elementsInRow + 1
-        # Ensure the next space to check is also on the board
-        if indexOfAboveRightAdjacent <= len(board) - 1 and lookahead <= len(board) - 1:
-            
-            firstIndexInPrevRow = indexOfAboveAdjacent - indexOfAboveAdjacent % elementsInRow
-            lastIndexInPrevRow = firstIndexInPrevRow + elementsInRow - 1
-            
-            # In addition to the usual checks for token colors, ensure no wrapping around
-            # to the other side of the board
-            if (indexOfAboveRightAdjacent <= lastIndexInPrevRow 
-                and tokenAboveRight == oppositeToken 
-                and board[indexOfAboveRightAdjacent - (elementsInRow - 1)] == blank):
-                
-                possibleMoves += 1
-                break
-            elif tokenAboveRight == blank or tokenAboveRight == currentToken:
-                break
-            else:
-                indexOfAboveRightAdjacent -= (elementsInRow - 1)
-        else:
-            break
+    possibleMoves += _scanInTwoDimensions(position, elementsInRow, currentToken, oppositeToken,
+                                     blank, board, directionFunctions)
     
     # Direction: Diagonal Down, Left
-    indexOfBelowLeftAdjacent = position + elementsInRow - 1
-    # Only enter the loop if there is a row below the current row
-    while indexOfBelowLeftAdjacent < len(board) - 1:
-        tokenBelowLeft = board[indexOfBelowLeftAdjacent]
-        indexOfBelowAdjacent = indexOfBelowLeftAdjacent + 1
-        lookahead = indexOfBelowLeftAdjacent + elementsInRow - 1
-        # Ensure the next space to check is also on the board
-        if indexOfBelowLeftAdjacent <= len(board) - 1 and lookahead <= len(board) - 1:
-            
-            firstIndexInNextRow = indexOfBelowAdjacent - indexOfBelowAdjacent % elementsInRow
-            
-            # In addition to the usual checks for token colors, ensure no wrapping around
-            # to the other side of the board
-            if (indexOfBelowLeftAdjacent >= firstIndexInNextRow 
-                and tokenBelowLeft == oppositeToken 
-                and board[indexOfBelowLeftAdjacent + elementsInRow - 1] == blank):
-                
-                possibleMoves += 1
-                break
-            elif tokenBelowLeft == blank or tokenBelowLeft == currentToken:
-                break
-            else:
-                indexOfBelowLeftAdjacent += (elementsInRow + 1)
-        else:
-            break
+    directionFunctions = {
+        "offset": _getOffsetBelowLeft,
+        "loopCondition": _loopConditionBelow,
+        "rowBounding": _enforceRowBoundingBelowLeft,
+        "wrapAround": _preventWrapAroundLeft,
+        "verticalNeighbor": _getOffsetRight
+    }    
+    
+    possibleMoves += _scanInTwoDimensions(position, elementsInRow, currentToken, oppositeToken,
+                                     blank, board, directionFunctions)
+#     indexOfBelowLeftAdjacent = position + elementsInRow - 1
+#     # Only enter the loop if there is a row below the current row
+#     while indexOfBelowLeftAdjacent < len(board) - 1:
+#         tokenBelowLeft = board[indexOfBelowLeftAdjacent]
+#         indexOfBelowAdjacent = indexOfBelowLeftAdjacent + 1
+#         lookahead = indexOfBelowLeftAdjacent + elementsInRow - 1
+#         # Ensure the next space to check is also on the board
+#         if indexOfBelowLeftAdjacent <= len(board) - 1 and lookahead <= len(board) - 1:
+#             
+#             firstIndexInNextRow = indexOfBelowAdjacent - indexOfBelowAdjacent % elementsInRow
+#             
+#             # In addition to the usual checks for token colors, ensure no wrapping around
+#             # to the other side of the board
+#             if (indexOfBelowLeftAdjacent >= firstIndexInNextRow 
+#                 and tokenBelowLeft == oppositeToken 
+#                 and board[indexOfBelowLeftAdjacent + elementsInRow - 1] == blank):
+#                 
+#                 possibleMoves += 1
+#                 break
+#             elif tokenBelowLeft == blank or tokenBelowLeft == currentToken:
+#                 break
+#             else:
+#                 indexOfBelowLeftAdjacent += (elementsInRow + 1)
+#         else:
+#             break
     
     # Direction: Diagonal Down, Right
     indexOfBelowRightAdjacent = position + elementsInRow + 1
@@ -269,40 +252,39 @@ def _scanInTwoDimensions(position, elementsInRow, currentToken, oppositeToken, b
         else: 
             break
         
-#     indexOfAboveRightAdjacent = position - elementsInRow + 1
-#     # Only enter the loop if there is a row above the current row
-#     while indexOfAboveRightAdjacent > 0:
-#         tokenAboveRight = board[indexOfAboveRightAdjacent]
-#         indexOfAboveAdjacent = indexOfAboveRightAdjacent + 1
-#         lookahead = indexOfAboveRightAdjacent - elementsInRow + 1
+#     indexOfBelowLeftAdjacent = position + elementsInRow - 1
+#     # Only enter the loop if there is a row below the current row
+#     while indexOfBelowLeftAdjacent < len(board) - 1:
+#         tokenBelowLeft = board[indexOfBelowLeftAdjacent]
+#         indexOfBelowAdjacent = indexOfBelowLeftAdjacent + 1
+#         lookahead = indexOfBelowLeftAdjacent + elementsInRow - 1
 #         # Ensure the next space to check is also on the board
-#         if indexOfAboveRightAdjacent <= len(board) - 1 and lookahead <= len(board) - 1:
+#         if indexOfBelowLeftAdjacent <= len(board) - 1 and lookahead <= len(board) - 1:
 #             
-#             firstIndexInPrevRow = indexOfAboveAdjacent - indexOfAboveAdjacent % elementsInRow
-#             lastIndexInPrevRow = firstIndexInPrevRow + elementsInRow - 1
+#             firstIndexInNextRow = indexOfBelowAdjacent - indexOfBelowAdjacent % elementsInRow
 #             
 #             # In addition to the usual checks for token colors, ensure no wrapping around
 #             # to the other side of the board
-#             if (indexOfAboveRightAdjacent <= lastIndexInPrevRow 
-#                 and tokenAboveRight == oppositeToken 
-#                 and board[indexOfAboveRightAdjacent - (elementsInRow - 1)] == blank):
+#             if (indexOfBelowLeftAdjacent >= firstIndexInNextRow 
+#                 and tokenBelowLeft == oppositeToken 
+#                 and board[indexOfBelowLeftAdjacent + elementsInRow - 1] == blank):
 #                 
 #                 possibleMoves += 1
 #                 break
-#             elif tokenAboveRight == blank or tokenAboveRight == currentToken:
+#             elif tokenBelowLeft == blank or tokenBelowLeft == currentToken:
 #                 break
 #             else:
-#                 indexOfAboveRightAdjacent -= (elementsInRow - 1)
+#                 indexOfBelowLeftAdjacent += (elementsInRow + 1)
 #         else:
 #             break
     
     return possibleMoves
 
-def _loopConditionAbove(board, elementsInRow, firstIndexInRow, indexOfAboveNeighbor):
-    return indexOfAboveNeighbor > 0
+def _loopConditionAbove(board, elementsInRow, firstIndexInRow, indexOfNeighbor):
+    return indexOfNeighbor > 0
 
-def _loopConditionBelow(board, elementsInRow, firstIndexInRow, indexOfBelowNeighbor):
-    return indexOfBelowNeighbor < len(board) - 1
+def _loopConditionBelow(board, elementsInRow, firstIndexInRow, indexOfNeighbor):
+    return indexOfNeighbor < len(board) - 1
 
 def _loopConditionLeft(board, elementsInRow, firstIndexInRow, indexOfHorizontalNeighbor):
     return (firstIndexInRow <= indexOfHorizontalNeighbor 
@@ -319,8 +301,14 @@ def _enforceRowBoundingAbove(board, elementsInRow, firstIndexInRow, lookahead):
 def _enforceRowBoundingAboveLeft(board, elementsInRow, indexOfVerticalNeighbor, lookahead):
     return indexOfVerticalNeighbor >= 0 and lookahead >= 0
 
+def _enforceRowBoundingAboveRight(board, elementsInRow, indexOfVerticalNeighbor, lookahead):
+    return indexOfVerticalNeighbor <= len(board) - 1 and lookahead <= len(board) - 1
+
 def _enforceRowBoundingBelow(board, elementsInRow, firstIndexInRow, lookahead):
     return lookahead <= len(board) - 1
+
+def _enforceRowBoundingBelowLeft(board, elementsInRow, indexOfVerticalNeighbor, lookahead):
+    return indexOfVerticalNeighbor <= len(board) - 1 and lookahead <= len(board) - 1
            
 def _enforceRowBoundingLeft(board, elementsInRow, firstIndexInRow, lookahead):
     return lookahead >= firstIndexInRow
@@ -329,8 +317,12 @@ def _enforceRowBoundingRight(board, elementsInRow, firstIndexInRow, lookahead):
     lastIndexInRow = firstIndexInRow + elementsInRow - 1
     return lookahead <= lastIndexInRow
 
-def _enforceWrapAroundAboveLeft(elementsInRow, firstIndexInNeighboringRow, indexOfNeighbor):
+def _preventWrapAroundLeft(elementsInRow, firstIndexInNeighboringRow, indexOfNeighbor):
     return indexOfNeighbor >= firstIndexInNeighboringRow
+
+def _preventWrapAroundAboveRight(elementsInRow, firstIndexInNeighboringRow, indexOfNeighbor):
+    lastIndexInNeighboringRow = firstIndexInNeighboringRow + elementsInRow - 1
+    return indexOfNeighbor <= lastIndexInNeighboringRow
 
 def _getOffsetAbove(elementsInRow, position):
     return position - elementsInRow
@@ -338,8 +330,14 @@ def _getOffsetAbove(elementsInRow, position):
 def _getOffsetAboveLeft(elementsInRow, position):
     return position - elementsInRow - 1
 
+def _getOffsetAboveRight(elementsInRow, position):
+    return position - elementsInRow + 1
+
 def _getOffsetBelow(elementsInRow, position):
     return position + elementsInRow
+
+def _getOffsetBelowLeft(elementsInRow, position):
+    return position + elementsInRow - 1
 
 def _getOffsetLeft(elementsInRow, position):
     return position - 1

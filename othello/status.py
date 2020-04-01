@@ -117,7 +117,7 @@ def _calculateMoveCount(currentToken, position, board, light, dark, blank):
         "verticalNeighbor": _getOffsetRight
     }
     
-    possibleMoves += _scanInOneDimension(position, elementsInRow, currentToken, 
+    possibleMoves += _scanInTwoDimensions(position, elementsInRow, currentToken, 
                         oppositeToken,blank, board, directionFunctions)
     
     # Direction: Diagonal Up, Right

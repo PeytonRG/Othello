@@ -4,6 +4,7 @@
     @author: Peyton Gasink
 '''
 
+import ast
 import hashlib
 import math
 from _ctypes import ArgumentError
@@ -111,6 +112,11 @@ def _validateBoard(inputDictionary, light, dark, blank, errorList):
         try:
             # This will throw a KeyError if there is no board key
             board = inputDictionary["board"]
+            
+            # cast the string from the HTTP request into a list
+            # will raise ValueError upon failure
+            if isinstance(board, str):
+                board = ast.literal_eval(board)
             
             # This will throw a TypeError if board is None
             size = math.sqrt(len(board))

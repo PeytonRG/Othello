@@ -7,6 +7,7 @@
 import hashlib
 import math
 from _ctypes import ArgumentError
+from itertools import chain
 
 def _validateLight(inputDictionary, errorList):
     errorMessage = ("The value for light tokens must be an integer in the " + 
@@ -169,7 +170,15 @@ def _validateIntegrity(inputDictionary, light, dark, blank, board, errorList):
             errorList.append(nonMatchingHashErrorMessage)
     
 def _generateHash(board, light, dark, blank, nextPlayer):
-    boardString = "".join(str(space) for space in board)  
+    # Convert the 1d board list into a 2d list
+    size = int(math.sqrt(len(board)))
+    twoDimensionalBoard = [board[element:element+size] for element in range(0, len(board), size)]
+    
+    # Transpose the 2d board
+    transposedTwoDimensionalBoard =[[row[element] for row in twoDimensionalBoard] for element in range(len(twoDimensionalBoard[0]))]
+    transposedBoard = list(chain.from_iterable(transposedTwoDimensionalBoard))
+    
+    boardString = "".join(str(space) for space in transposedBoard)  
     integrity = str.encode(boardString + f"/{light}/{dark}/{blank}/{nextPlayer}")
     integrityHash = hashlib.sha256(integrity).hexdigest()
     

@@ -139,7 +139,7 @@ def _validateBoard(inputDictionary, light, dark, blank, errorList):
             
             return board
         
-        except (KeyError, TypeError, ValueError):
+        except (KeyError, TypeError, SyntaxError, ValueError):
             errorList.append(standardErrorMessage)
         except ArgumentError:
             errorList.append(invalidTokensInBoardMessage)

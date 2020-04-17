@@ -126,7 +126,7 @@ def _validateBoard(inputDictionary, light, dark, blank, errorList):
                 raise ValueError
             
             # This board is a square, but with odd length and width
-            if len(board) % 2 != 0:
+            if len(board) % 2 != 0 or size < 6 or size > 16:
                 raise ValueError
             
             lightCount = board.count(light)
